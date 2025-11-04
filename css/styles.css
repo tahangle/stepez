@@ -1,0 +1,293 @@
+/* Root Variables */
+:root {
+    --color-primary: #000000;
+    --color-secondary: #ffffff;
+
+    /* Desktop Grid */
+    --desktop-columns: 6;
+    --desktop-gutter: 20px;
+    --desktop-margin: 30px;
+
+    /* Mobile Grid */
+    --mobile-columns: 5;
+    --mobile-gutter: 20px;
+    --mobile-margin: 20px;
+
+    /* Typography Desktop */
+    --h1-size-desktop: 35px;
+    --h1-line-desktop: 35px;
+
+    /* Typography Mobile */
+    --h1-size-mobile: 32px;
+    --h1-line-mobile: 32px;
+}
+
+/* Base Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    overflow-x: hidden;
+}
+
+#app {
+    position: relative;
+    min-height: 100vh;
+}
+
+h1 {
+    font-weight: 400;
+    margin: 0;
+}
+
+/* Header Base */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Initial state for animations - Desktop */
+@media (min-width: 769px) {
+    /* Logo stays visible */
+    .header__logo {
+        opacity: 1;
+    }
+
+    /* Only active nav items start hidden for dramatic fade-in */
+    .nav__item--active {
+        opacity: 0;
+    }
+
+    /* Inactive items and subtitle start visible, will animate to 0.2 */
+    .nav__item--inactive,
+    .header__subtitle {
+        opacity: 1;
+    }
+}
+
+/* Initial state for animations - Mobile */
+@media (max-width: 768px) {
+    .header__logo,
+    .nav__item,
+    .header__subtitle,
+    .header__menu-icon {
+        opacity: 0;
+    }
+}
+
+/* Main Content */
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   DESKTOP LAYOUT (768px and above)
+   ======================================== */
+@media (min-width: 769px) {
+    .header {
+        padding: var(--desktop-margin);
+    }
+
+    .header h1 {
+        font-size: var(--h1-size-desktop);
+        line-height: var(--h1-line-desktop);
+    }
+
+    /* Logo - Bottom Left */
+    .header__logo {
+        position: absolute;
+        bottom: var(--desktop-margin);
+        left: var(--desktop-margin);
+    }
+
+    /* Navigation - Top (Work left, About right) */
+    .header__nav {
+        position: absolute;
+        top: var(--desktop-margin);
+        left: var(--desktop-margin);
+        right: var(--desktop-margin);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Subtitle - Bottom Right */
+    .header__subtitle {
+        position: absolute;
+        bottom: var(--desktop-margin);
+        right: var(--desktop-margin);
+    }
+
+    /* Hide mobile menu icon on desktop */
+    .header__menu-icon {
+        display: none;
+    }
+}
+
+/* ========================================
+   MOBILE LAYOUT (768px and below)
+   ======================================== */
+@media (max-width: 768px) {
+    .header {
+        padding: var(--mobile-margin);
+    }
+
+    .header h1 {
+        font-size: var(--h1-size-mobile);
+        line-height: var(--h1-line-mobile);
+    }
+
+    /* Logo - Top Left */
+    .header__logo {
+        position: absolute;
+        top: var(--mobile-margin);
+        left: var(--mobile-margin);
+    }
+
+    /* Menu Icon - Top Right */
+    .header__menu-icon {
+        position: absolute;
+        top: var(--mobile-margin);
+        right: var(--mobile-margin);
+        width: var(--h1-size-mobile);
+        height: var(--h1-size-mobile);
+        cursor: pointer !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu-icon__line {
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background-color: var(--color-primary);
+        transition: transform 0.3s ease;
+    }
+
+    .menu-icon__line--1 {
+        transform: rotate(0deg);
+    }
+
+    .menu-icon__line--2 {
+        transform: rotate(90deg);
+    }
+
+    /* Menu icon X state (when menu is open) */
+    .header__menu-icon.is-open .menu-icon__line--1 {
+        transform: rotate(45deg);
+    }
+
+    .header__menu-icon.is-open .menu-icon__line--2 {
+        transform: rotate(-45deg);
+    }
+
+    /* Navigation - Bottom (Work left, About right) - Hidden by default */
+    .header__nav {
+        position: absolute;
+        bottom: var(--mobile-margin);
+        left: var(--mobile-margin);
+        right: var(--mobile-margin);
+        display: flex;
+        justify-content: space-between;
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+    }
+
+    .header__nav.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+    }
+
+    /* Subtitle - Bottom Left - Visible by default */
+    .header__subtitle {
+        position: absolute;
+        bottom: var(--mobile-margin);
+        left: var(--mobile-margin);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .header__subtitle.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+    }
+}
+
+/* Inactive/Dimmed State - Desktop Only */
+@media (min-width: 769px) {
+    .nav__item--inactive,
+    .header__subtitle--inactive {
+        opacity: 0.2;
+    }
+
+    .nav__item--inactive a:hover,
+    .header__subtitle--inactive a:hover {
+        opacity: 0.2;
+    }
+}
+
+/* Mobile - No opacity changes, all items at full opacity */
+@media (max-width: 768px) {
+    .nav__item--inactive,
+    .header__subtitle--inactive {
+        opacity: 1;
+    }
+}
+
+/* Link Styling */
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.nav__item--active a:hover {
+    opacity: 1;
+}
+
+/* Navigation items should have pointer cursor */
+.nav__item a {
+    cursor: pointer;
+}
+
+/* Logo should look clickable */
+.header__logo a {
+    cursor: pointer;
+}
+
+/* Menu icon cursor */
+.header__menu-icon {
+    cursor: pointer !important;
+}
+
+/* Animation Helpers */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+}
