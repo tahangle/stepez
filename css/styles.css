@@ -51,6 +51,14 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    pointer-events: none;
+}
+
+/* Enable pointer events for interactive elements */
+.header__logo a,
+.header__nav a,
+.header__menu-icon {
+    pointer-events: auto;
 }
 
 /* Initial state for animations - Desktop */
@@ -70,14 +78,25 @@ h1 {
     .header__subtitle {
         opacity: 1;
     }
+
+    /* Project names start hidden for fade-in */
+    .project-name {
+        opacity: 0;
+    }
 }
 
 /* Initial state for animations - Mobile */
 @media (max-width: 768px) {
+    /* Default: everything starts hidden except on work/about pages */
     .header__logo,
     .nav__item,
     .header__subtitle,
     .header__menu-icon {
+        opacity: 0;
+    }
+
+    /* Project items start hidden */
+    .project-item {
         opacity: 0;
     }
 }
@@ -86,6 +105,109 @@ h1 {
 main {
     position: relative;
     z-index: 1;
+}
+
+/* Work Page - Project List */
+.work-content {
+    padding: var(--desktop-margin);
+    padding-top: calc(var(--desktop-margin) * 3);
+}
+
+.project-list {
+    max-width: 100%;
+}
+
+.project-item {
+    opacity: 1;
+    margin-bottom: 0;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.project-name {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.project-name a {
+    display: inline-block;
+}
+
+/* Preview and Category - Hidden by default on desktop */
+.project-preview,
+.project-category {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Desktop hover layout */
+@media (min-width: 769px) {
+    .project-preview {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .preview-placeholder {
+        background-color: #d0d0d0;
+    }
+
+    .project-category {
+        position: absolute;
+        right: 0;
+        text-align: right;
+    }
+}
+
+/* Project Content Page */
+.project-content {
+    padding: var(--desktop-margin);
+    padding-top: calc(var(--desktop-margin) * 3);
+}
+
+/* Desktop/Mobile project variants */
+@media (min-width: 769px) {
+    .project-item--mobile {
+        display: none;
+    }
+
+    .work-content {
+        padding: var(--desktop-margin);
+        padding-top: calc(var(--desktop-margin) * 3);
+    }
+}
+
+@media (max-width: 768px) {
+    .project-item--desktop {
+        display: none;
+    }
+
+    .work-content {
+        padding: var(--mobile-margin);
+        padding-top: calc(var(--mobile-margin) + 80px);
+    }
+
+    /* Mobile: simple list layout */
+    .project-item {
+        display: block;
+        cursor: default;
+    }
+
+    /* Hide preview and category on mobile */
+    .project-preview,
+    .project-category {
+        display: none !important;
+    }
 }
 
 /* ========================================
@@ -189,7 +311,7 @@ main {
         transform: rotate(-45deg);
     }
 
-    /* Navigation - Bottom (Work left, About right) - Hidden by default */
+    /* Navigation - Bottom (Work left, About right) */
     .header__nav {
         position: absolute;
         bottom: var(--mobile-margin);
@@ -197,24 +319,70 @@ main {
         right: var(--mobile-margin);
         display: flex;
         justify-content: space-between;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Individual nav items positioning */
+    .nav__item--work {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+
+    .nav__item--about {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    /* On home page, nav is hidden by default */
+    body:not([class]) .header__nav {
         opacity: 0;
         pointer-events: none;
         visibility: hidden;
     }
 
-    .header__nav.is-visible {
+    body:not([class]) .header__nav.is-visible {
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
     }
 
-    /* Subtitle - Bottom Left - Visible by default */
+    /* On work/about pages, active item always visible, stays in place */
+    .nav__item--active {
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    /* Inactive items hidden by default on work/about pages */
+    .nav__item--inactive {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* When menu is open on work/about pages, show inactive at 20% */
+    .header__nav.is-visible .nav__item--inactive {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Subtitle - Bottom Left - Visible by default on home page only */
     .header__subtitle {
         position: absolute;
         bottom: var(--mobile-margin);
         left: var(--mobile-margin);
         opacity: 1;
         visibility: visible;
+    }
+
+    /* On work/about pages, subtitle is always hidden on mobile */
+    .header__subtitle--inactive {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
     }
 
     .header__subtitle.is-hidden {

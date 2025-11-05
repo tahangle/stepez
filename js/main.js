@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPageLoad();
     initMobileMenu();
     initAnimations();
+    initProjectHover();
 });
 
 // Animate page load
@@ -19,29 +20,58 @@ function initPageLoad() {
     const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
     if (isMobile) {
-        // Mobile: Everything fades in
-        // Logo and menu icon appear together
-        timeline.to('.header__logo', {
-            opacity: 1,
-            duration: 1.2,
-            delay: 0.2
-        });
+        // Check if we're on work/about page
+        const hasActiveClass = document.querySelector('.nav__item--active');
 
-        timeline.to('.header__menu-icon', {
-            opacity: 1,
-            duration: 1.2,
-            delay: 0.2
-        }, 0);
+        if (hasActiveClass) {
+            // Work/About page: Show logo and icon immediately (no animation)
+            gsap.set('.header__logo', { opacity: 1 });
+            gsap.set('.header__menu-icon', { opacity: 1 });
 
-        timeline.to('.nav__item', {
-            opacity: 1,
-            duration: 1.2
-        }, '-=0.8');
+            // Only animate the active nav item
+            timeline.to('.nav__item--active', {
+                opacity: 1,
+                duration: 1.2,
+                delay: 0.2
+            });
 
-        timeline.to('.header__subtitle', {
-            opacity: 1,
-            duration: 1.2
-        }, '-=0.8');
+            // Animate project list if exists
+            const projectItems = document.querySelectorAll('.project-item');
+            if (projectItems.length > 0) {
+                projectItems.forEach((item, index) => {
+                    timeline.to(item, {
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    }, '-=0.55');
+                });
+            }
+        } else {
+            // Home page: Everything fades in
+            // Logo and menu icon appear together
+            timeline.to('.header__logo', {
+                opacity: 1,
+                duration: 1.2,
+                delay: 0.2
+            });
+
+            timeline.to('.header__menu-icon', {
+                opacity: 1,
+                duration: 1.2,
+                delay: 0.2
+            }, 0);
+
+            // Show all nav items and subtitle
+            timeline.to('.nav__item', {
+                opacity: 1,
+                duration: 1.2
+            }, '-=0.8');
+
+            timeline.to('.header__subtitle', {
+                opacity: 1,
+                duration: 1.2
+            }, '-=0.8');
+        }
     } else {
         // Desktop: Different behavior
         const hasActiveClass = document.querySelector('.nav__item--active');
@@ -70,6 +100,18 @@ function initPageLoad() {
                 duration: 0.8,
                 ease: 'power2.inOut'
             }, '-=0.8');
+
+            // If on work page, animate project list sequentially
+            const projectNames = document.querySelectorAll('.project-name');
+            if (projectNames.length > 0) {
+                projectNames.forEach((name, index) => {
+                    timeline.to(name, {
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    }, '-=0.55'); // Tiny overlap for smooth sequential appearance
+                });
+            }
         } else {
             // Home page - fade in all nav items
             timeline.to('.nav__item', {
@@ -86,8 +128,10 @@ function initMobileMenu() {
     const menuIcon = document.getElementById('menuIcon');
     const nav = document.querySelector('.header__nav');
     const subtitle = document.getElementById('subtitle');
+    const inactiveNavItem = document.querySelector('.nav__item--inactive');
+    const isWorkOrAboutPage = document.querySelector('.nav__item--active') !== null;
 
-    if (!menuIcon || !nav || !subtitle) return;
+    if (!menuIcon || !nav) return;
 
     menuIcon.addEventListener('click', toggleMenu);
 
@@ -110,25 +154,39 @@ function initMobileMenu() {
                 ease: 'power2.inOut'
             });
 
-            // Hide subtitle and show nav
-            gsap.to(subtitle, {
-                opacity: 0,
-                duration: 0.3,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    subtitle.classList.add('is-hidden');
+            if (isWorkOrAboutPage) {
+                // Work/About page: show inactive nav item at 20% opacity
+                nav.classList.add('is-visible');
+                if (inactiveNavItem) {
+                    gsap.to(inactiveNavItem, {
+                        opacity: 0.2,
+                        duration: 0.3,
+                        ease: 'power2.inOut'
+                    });
                 }
-            });
+            } else {
+                // Home page: hide subtitle and show nav
+                if (subtitle) {
+                    gsap.to(subtitle, {
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: 'power2.inOut',
+                        onComplete: () => {
+                            subtitle.classList.add('is-hidden');
+                        }
+                    });
+                }
 
-            gsap.to(nav, {
-                opacity: 1,
-                duration: 0.3,
-                delay: 0.15,
-                ease: 'power2.inOut',
-                onStart: () => {
-                    nav.classList.add('is-visible');
-                }
-            });
+                gsap.to(nav, {
+                    opacity: 1,
+                    duration: 0.3,
+                    delay: 0.15,
+                    ease: 'power2.inOut',
+                    onStart: () => {
+                        nav.classList.add('is-visible');
+                    }
+                });
+            }
 
         } else {
             // Close menu
@@ -146,25 +204,41 @@ function initMobileMenu() {
                 ease: 'power2.inOut'
             });
 
-            // Hide nav and show subtitle
-            gsap.to(nav, {
-                opacity: 0,
-                duration: 0.3,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    nav.classList.remove('is-visible');
+            if (isWorkOrAboutPage) {
+                // Work/About page: hide inactive nav item
+                if (inactiveNavItem) {
+                    gsap.to(inactiveNavItem, {
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: 'power2.inOut',
+                        onComplete: () => {
+                            nav.classList.remove('is-visible');
+                        }
+                    });
                 }
-            });
+            } else {
+                // Home page: hide nav and show subtitle
+                gsap.to(nav, {
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        nav.classList.remove('is-visible');
+                    }
+                });
 
-            gsap.to(subtitle, {
-                opacity: 1,
-                duration: 0.3,
-                delay: 0.15,
-                ease: 'power2.inOut',
-                onStart: () => {
-                    subtitle.classList.remove('is-hidden');
+                if (subtitle) {
+                    gsap.to(subtitle, {
+                        opacity: 1,
+                        duration: 0.3,
+                        delay: 0.15,
+                        ease: 'power2.inOut',
+                        onStart: () => {
+                            subtitle.classList.remove('is-hidden');
+                        }
+                    });
                 }
-            });
+            }
         }
     }
 }
@@ -236,4 +310,80 @@ function animateOut(element, options = {}) {
     };
 
     return gsap.to(element, { ...defaults, ...options });
+}
+
+// Project hover animations (Desktop only)
+function initProjectHover() {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) return;
+
+    const projectItems = document.querySelectorAll('.project-item');
+
+    console.log('Initializing hover for', projectItems.length, 'projects');
+
+    projectItems.forEach((item, index) => {
+        const projectName = item.querySelector('.project-name');
+        const preview = item.querySelector('.project-preview');
+        const category = item.querySelector('.project-category');
+        const otherItems = Array.from(projectItems).filter(p => p !== item);
+        const otherNames = otherItems.map(p => p.querySelector('.project-name'));
+
+        if (!preview || !category || !projectName) {
+            console.log('Missing preview, category or name for item', index);
+            return;
+        }
+
+        // Create timeline for this project
+        const hoverTimeline = gsap.timeline({
+            paused: true,
+            defaults: { ease: 'power2.out' }
+        });
+
+        // Set initial states for preview and category
+        gsap.set(preview, {
+            opacity: 0,
+            visibility: 'hidden',
+            scale: 0.9
+        });
+
+        gsap.set(category, {
+            opacity: 0,
+            visibility: 'hidden',
+            x: 20
+        });
+
+        // Animate preview and category in, fade others (current name stays at 1)
+        hoverTimeline
+            .to(preview, {
+                opacity: 1,
+                visibility: 'visible',
+                scale: 1,
+                duration: 0.5
+            }, 0)
+            .to(category, {
+                opacity: 1,
+                visibility: 'visible',
+                x: 0,
+                duration: 0.5
+            }, 0.1)
+            .fromTo(otherNames, {
+                opacity: 1
+            }, {
+                opacity: 0.2,
+                duration: 0.4,
+                ease: 'power2.inOut'
+            }, 0);
+
+        // Mouse enter on entire row
+        item.addEventListener('mouseenter', () => {
+            console.log('Hovering item', index);
+            hoverTimeline.play();
+        });
+
+        // Mouse leave from entire row
+        item.addEventListener('mouseleave', () => {
+            console.log('Leaving item', index);
+            hoverTimeline.reverse();
+        });
+    });
 }
