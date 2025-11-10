@@ -318,9 +318,9 @@ function initProjectHover() {
     if (isMobile) return;
 
     const projectItems = document.querySelectorAll('.project-item');
-
-    // Get all project names
     const allProjectNames = Array.from(projectItems).map(p => p.querySelector('.project-name'));
+
+    let currentTimeline = null;
 
     projectItems.forEach((item, index) => {
         const projectName = item.querySelector('.project-name');
@@ -331,12 +331,6 @@ function initProjectHover() {
         if (!preview || !category || !projectName) {
             return;
         }
-
-        // Create timeline for this project
-        const hoverTimeline = gsap.timeline({
-            paused: true,
-            defaults: { ease: 'power2.out' }
-        });
 
         // Set initial states for preview and category
         gsap.set(preview, {
@@ -351,34 +345,66 @@ function initProjectHover() {
             x: 20
         });
 
-        // Animate preview and category in, fade others (current name stays at 1)
-        hoverTimeline
-            .to(preview, {
-                opacity: 1,
-                visibility: 'visible',
-                scale: 1,
-                duration: 0.5
-            }, 0)
-            .to(category, {
-                opacity: 1,
-                visibility: 'visible',
-                x: 0,
-                duration: 0.5
-            }, 0.1)
-            .to(otherNames, {
-                opacity: 0.1,
-                duration: 0.4,
-                ease: 'power2.inOut'
-            }, 0);
-
         // Mouse enter on entire row
         item.addEventListener('mouseenter', () => {
-            hoverTimeline.restart();
+            // Kill any existing timeline
+            if (currentTimeline) {
+                currentTimeline.kill();
+            }
+
+            // Reset all project names to full opacity first
+            gsap.set(allProjectNames, { opacity: 1 });
+
+            // Create new timeline for this hover
+            currentTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+            currentTimeline
+                .to(preview, {
+                    opacity: 1,
+                    visibility: 'visible',
+                    scale: 1,
+                    duration: 0.5
+                }, 0)
+                .to(category, {
+                    opacity: 1,
+                    visibility: 'visible',
+                    x: 0,
+                    duration: 0.5
+                }, 0.1)
+                .to(otherNames, {
+                    opacity: 0.1,
+                    duration: 0.4,
+                    ease: 'power2.inOut'
+                }, 0);
         });
 
         // Mouse leave from entire row
         item.addEventListener('mouseleave', () => {
-            hoverTimeline.reverse();
+            if (currentTimeline) {
+                currentTimeline.kill();
+            }
+
+            // Create exit animation
+            currentTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+            currentTimeline
+                .to(preview, {
+                    opacity: 0,
+                    visibility: 'hidden',
+                    scale: 0.9,
+                    duration: 0.4
+                }, 0)
+                .to(category, {
+                    opacity: 0,
+                    visibility: 'hidden',
+                    x: 20,
+                    duration: 0.4
+                }, 0)
+                .to(allProjectNames, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power2.inOut'
+                }, 0);
         });
     });
 }
