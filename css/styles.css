@@ -82,6 +82,13 @@ h1 {
     pointer-events: none;
 }
 
+/* Mobile: Header not fixed to allow logo to scroll */
+@media (max-width: 768px) {
+    .header {
+        position: absolute;
+    }
+}
+
 /* Enable pointer events for interactive elements */
 .header__logo a,
 .header__nav a,
@@ -303,12 +310,12 @@ main {
         line-height: var(--h1-line-mobile);
     }
 
-    /* Logo - Top Left - Absolute to scroll away with content */
+    /* Logo - Top Left - Absolute within non-fixed header to scroll away */
     .header__logo {
         position: absolute;
         top: var(--mobile-margin);
         left: var(--mobile-margin);
-        z-index: 200;
+        z-index: 1;
     }
 
     /* Menu Icon - Top Right - Fixed to stay visible while scrolling */
