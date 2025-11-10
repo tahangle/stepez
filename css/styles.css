@@ -305,7 +305,7 @@ main {
 
     /* Logo - Top Left */
     .header__logo {
-        position: absolute;
+        position: fixed;
         top: var(--mobile-margin);
         left: var(--mobile-margin);
         z-index: 200;
@@ -313,7 +313,7 @@ main {
 
     /* Menu Icon - Top Right */
     .header__menu-icon {
-        position: absolute;
+        position: fixed;
         top: var(--mobile-margin);
         right: var(--mobile-margin);
         z-index: 200;
