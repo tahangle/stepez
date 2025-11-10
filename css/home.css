@@ -45,6 +45,13 @@
 
 /* Mobile Menu Background Effect */
 @media (max-width: 768px) {
+    /* Override nav background on homepage to show current image blurred */
+    body .header__nav {
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
     .menu-background {
         position: fixed;
         top: 0;
@@ -54,23 +61,15 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        filter: blur(30px);
-        transform: scale(1.1);
         opacity: 0;
         pointer-events: none;
         z-index: 50;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.3s ease;
     }
 
     .menu-background.active {
-        opacity: 0.9;
-        pointer-events: auto;
-    }
-
-    /* Hide slideshow when menu is open */
-    body.menu-open .home-slideshow {
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        opacity: 1;
+        pointer-events: none;
     }
 
     /* Adjust header z-index for mobile menu */
