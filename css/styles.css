@@ -249,8 +249,8 @@ main {
 
     /* Apply mobile h1 typography to project names */
     .project-name h1 {
-        font-size: var(--h1-size-mobile);
-        line-height: var(--h1-line-mobile);
+        font-size: var(--h1-size-mobile) !important;
+        line-height: var(--h1-line-mobile) !important;
     }
 
     /* Hide preview and category on mobile */
