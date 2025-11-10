@@ -318,11 +318,11 @@ main {
         z-index: 1;
     }
 
-    /* When menu is open, make logo fixed and visible */
+    /* When menu is open, make logo fixed and visible above menu */
     .header__menu-icon.is-open ~ .header__logo,
     body.menu-open .header__logo {
         position: fixed;
-        z-index: 200;
+        z-index: 300;
     }
 
     /* Menu Icon - Top Right - Fixed to stay visible while scrolling */
@@ -330,7 +330,7 @@ main {
         position: fixed;
         top: var(--mobile-margin);
         right: var(--mobile-margin);
-        z-index: 200;
+        z-index: 300;
         width: var(--h1-size-mobile);
         height: var(--h1-size-mobile);
         cursor: pointer !important;
