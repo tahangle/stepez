@@ -68,6 +68,13 @@ function initHeaderSwap() {
 
     if (!galleryScroll || !logo || !subtitle || !projectNavHeader) return;
 
+    // Desktop only - on mobile, logo always stays visible
+    if (window.innerWidth <= 768) {
+        // Ensure logo is always visible on mobile
+        gsap.set(logo, { opacity: 1 });
+        return;
+    }
+
     galleryScroll.addEventListener('scroll', () => {
         const scrollPosition = galleryScroll.scrollTop;
         const scrollHeight = galleryScroll.scrollHeight;
