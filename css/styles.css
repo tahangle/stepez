@@ -247,6 +247,12 @@ main {
         cursor: default;
     }
 
+    /* Apply mobile h1 typography to project names */
+    .project-name h1 {
+        font-size: var(--h1-size-mobile);
+        line-height: var(--h1-line-mobile);
+    }
+
     /* Hide preview and category on mobile */
     .project-preview,
     .project-category {
