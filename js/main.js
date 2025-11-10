@@ -319,12 +319,14 @@ function initProjectHover() {
 
     const projectItems = document.querySelectorAll('.project-item');
 
+    // Get all project names
+    const allProjectNames = Array.from(projectItems).map(p => p.querySelector('.project-name'));
+
     projectItems.forEach((item, index) => {
         const projectName = item.querySelector('.project-name');
         const preview = item.querySelector('.project-preview');
         const category = item.querySelector('.project-category');
-        const otherItems = Array.from(projectItems).filter(p => p !== item);
-        const otherNames = otherItems.map(p => p.querySelector('.project-name'));
+        const otherNames = allProjectNames.filter(name => name !== projectName);
 
         if (!preview || !category || !projectName) {
             return;
