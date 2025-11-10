@@ -303,7 +303,7 @@ main {
         line-height: var(--h1-line-mobile);
     }
 
-    /* Logo - Top Left */
+    /* Logo - Top Left - Fixed to stay visible while scrolling */
     .header__logo {
         position: fixed;
         top: var(--mobile-margin);
@@ -311,9 +311,9 @@ main {
         z-index: 200;
     }
 
-    /* Menu Icon - Top Right */
+    /* Menu Icon - Top Right - Absolute to scroll with content */
     .header__menu-icon {
-        position: fixed;
+        position: absolute;
         top: var(--mobile-margin);
         right: var(--mobile-margin);
         z-index: 200;
