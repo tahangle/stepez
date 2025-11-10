@@ -303,17 +303,17 @@ main {
         line-height: var(--h1-line-mobile);
     }
 
-    /* Logo - Top Left - Fixed to stay visible while scrolling */
+    /* Logo - Top Left - Absolute to scroll away with content */
     .header__logo {
-        position: fixed;
+        position: absolute;
         top: var(--mobile-margin);
         left: var(--mobile-margin);
         z-index: 200;
     }
 
-    /* Menu Icon - Top Right - Absolute to scroll with content */
+    /* Menu Icon - Top Right - Fixed to stay visible while scrolling */
     .header__menu-icon {
-        position: absolute;
+        position: fixed;
         top: var(--mobile-margin);
         right: var(--mobile-margin);
         z-index: 200;
