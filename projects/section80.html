@@ -8,11 +8,12 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project.css">
 </head>
 <body>
     <!-- Main Content -->
     <div id="app">
-        <header class="header">
+        <header class="header" id="projectHeader">
             <div class="header__logo">
                 <h1><a href="../index.html">Stefano Pezzini</a></h1>
             </div>
@@ -33,8 +34,99 @@
         </header>
 
         <main class="project-content">
-            <!-- Project content will be added here -->
-            <h1>Section 80 Bar</h1>
+            <!-- Project Title -->
+            <div class="project-title">
+                <h1>Section 80 Bar</h1>
+            </div>
+
+            <!-- Project Info -->
+            <div class="project-info">
+                <div class="info-item">
+                    <p class="caption caption--bold">Employer</p>
+                    <p class="caption">Indipendent personal project</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Client</p>
+                    <p class="caption">Section80 Production Company</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Location</p>
+                    <p class="caption">Milan, Italy</p>
+                </div>
+            </div>
+
+            <!-- Content Grid: Intro (2 cols) + Body (2 cols) -->
+            <div class="project-grid">
+                <!-- Intro Text (cols 1-2) -->
+                <div class="project-intro">
+                    <h1>Section80.Bar is a hybrid space that combines culture, inspiration, and relaxation, catering to those seeking intellectual stimuli and social interaction.</h1>
+                </div>
+
+                <!-- Body Paragraphs (cols 3-4) -->
+                <div class="project-body">
+                    <p class="body-text">Created by the Section80 team in collaboration with Stefano Pezzini (Lighting Design), Studio Wok (Interior design) and H.A.N.D. HiFi (Sound design).</p>
+
+                    <p class="body-text">The design of the building housing the bar —a piano-tail-shaped structure in the Isola district—served as the inspiration for its concept.</p>
+
+                    <p class="body-text">The idea to recreate an urban portico that continuously transforms, from the light design to the seating arrangements, reflecting the imagination and creativity of the quests.</p>
+                </div>
+            </div>
+
+            <!-- Scrollable Image Gallery (cols 5-6) -->
+            <div class="project-gallery">
+                <div class="gallery-toggle">
+                    <button class="toggle-btn active" data-view="vertical">Gallery</button>
+                    <button class="toggle-btn" data-view="fullview">Full View</button>
+                </div>
+                <div class="gallery-scroll" id="galleryScroll">
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_1.jpg" alt="Section 80 Bar shelves">
+                        <p class="caption caption--bold caption--desktop">Concept by Section80 team in collaboration with Kitchen Cabinet, La Peg, Stéphane Wargnier, and Studio Weigt.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_2.jpg" alt="Section 80 Bar seating">
+                        <p class="caption caption--bold caption--desktop">Lighting layers create depth and visual interest.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_3.jpg" alt="Section 80 Bar exterior">
+                        <p class="caption caption--bold caption--desktop">The exterior design establishes the bar's identity on the street.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_4.jpg" alt="Section 80 Bar interior">
+                        <p class="caption caption--bold caption--desktop">A hybrid space for art, a nightclub, a bar – a platform that echoed its values of the "indie spirit" the founders wanted to embed.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_5.jpg" alt="Section 80 Bar ceiling">
+                        <p class="caption caption--bold caption--desktop">The space is secretive, private and special, almost club-like in its intimacy.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_6.jpeg" alt="Section 80 Bar detail">
+                        <p class="caption caption--bold caption--desktop">Custom lighting fixtures enhance the atmosphere.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Section80/Section80_7.jpeg" alt="Section 80 Bar lighting detail">
+                        <p class="caption caption--bold caption--desktop">Architectural integration of light and space.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Navigation -->
+            <nav class="project-nav-header" id="projectNavHeader">
+                <a href="fondazione-prada.html" class="project-nav-header__link">
+                    <span class="project-nav-header__arrow">←</span>
+                    <h1 class="project-nav-header__title">Fondazione Prada</h1>
+                </a>
+                <a href="ara-pacis.html" class="project-nav-header__link">
+                    <h1 class="project-nav-header__title">Ara Pacis</h1>
+                    <span class="project-nav-header__arrow">→</span>
+                </a>
+            </nav>
         </main>
     </div>
 
@@ -42,5 +134,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/project.js"></script>
 </body>
 </html>

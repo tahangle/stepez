@@ -4,33 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ara Pacis - Stefano Pezzini</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project.css">
 </head>
 <body>
+    <!-- Main Content -->
     <div id="app">
-        <header class="header">
+        <header class="header" id="projectHeader">
             <div class="header__logo">
                 <h1><a href="../index.html">Stefano Pezzini</a></h1>
             </div>
+
             <div class="header__menu-icon" id="menuIcon">
                 <span class="menu-icon__line menu-icon__line--1"></span>
                 <span class="menu-icon__line menu-icon__line--2"></span>
             </div>
+
             <nav class="header__nav">
                 <h1 class="nav__item nav__item--work nav__item--active"><a href="../work.html">Work</a></h1>
                 <h1 class="nav__item nav__item--about nav__item--inactive"><a href="../about.html">About</a></h1>
             </nav>
+
             <div class="header__subtitle header__subtitle--inactive" id="subtitle">
                 <h1>Lighting Designer</h1>
             </div>
         </header>
+
         <main class="project-content">
-            <h1>Ara Pacis</h1>
+            <!-- Project Title -->
+            <div class="project-title">
+                <h1>Ara Pacis</h1>
+            </div>
+
+            <!-- Project Info -->
+            <div class="project-info">
+                <div class="info-item">
+                    <p class="caption caption--bold">Employer</p>
+                    <p class="caption">ERCO Lighting Design dept.</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Client</p>
+                    <p class="caption">Museum of Ara Pacis</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Location</p>
+                    <p class="caption">Rome, Italy</p>
+                </div>
+            </div>
+
+            <!-- Gallery Toggle Controls -->
+            <div class="gallery-toggle">
+                <button class="toggle-btn active" data-view="vertical">Gallery</button>
+                <button class="toggle-btn" data-view="fullview">Full View</button>
+            </div>
+
+            <!-- Content Grid: Intro (2 cols) + Body (2 cols) -->
+            <div class="project-grid">
+                <!-- Intro Text (cols 1-2) -->
+                <div class="project-intro">
+                    <h1>Relamping and conversion for energy efficiency and minimal maintenance, including Casambi programming, following the original lighting concept of "positive contrast".</h1>
+                </div>
+
+                <!-- Body Paragraphs (cols 3-4) -->
+                <div class="project-body">
+                    <p class="body-text">In 2006, the firm Richard Meier + Partners designed the glass structure surrounding the altar, which is housed within the Museo dell'Ara Pacis.</p>
+
+                    <p class="body-text">The new sustainable system, with 218 LED ERCO fixtures reliable and maintenance-free, boasts a lighting power of just 8.4 KW, while the previous system reached 57 KW, resulting in an impressive 85% energy saving.</p>
+
+                    <p class="body-text">Created Casambi light scenes based on the original"positive contrast" concept. Brightness levels were used to establish perceptual hierarchies,while varying color temperatures enhanced contrast. The area around the Altar is lit with warm white general lighting, while the monument is highlighted with neutral white accent lighting.</p>
+                </div>
+            </div>
+
+            <!-- Scrollable Image Gallery (cols 5-6) -->
+            <div class="project-gallery">
+                <div class="gallery-scroll" id="galleryScroll">
+                    <div class="image-wrapper">
+                        <img src="../images/projects/AraPacis/AraPacis_1.jpg" alt="Ara Pacis museum lighting">
+                        <p class="caption caption--bold caption--desktop">The glass structure designed by Richard Meier + Partners houses the ancient altar.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/AraPacis/AraPacis_2.jpg" alt="Ara Pacis altar detail">
+                        <p class="caption caption--bold caption--desktop">Neutral white accent lighting highlights the monument's intricate details.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/AraPacis/AraPacis_3.jpg" alt="Ara Pacis lighting detail">
+                        <p class="caption caption--bold caption--desktop">218 LED ERCO fixtures provide reliable and maintenance-free illumination.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/AraPacis/AraPacis_4.jpg" alt="Ara Pacis atmosphere">
+                        <p class="caption caption--bold caption--desktop">Warm white general lighting creates a welcoming atmosphere around the altar.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/AraPacis/AraPacis_5.jpg" alt="Ara Pacis energy efficiency">
+                        <p class="caption caption--bold caption--desktop">The new system achieves an impressive 85% energy saving.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/AraPacis/AraPacis_6.jpg" alt="Ara Pacis contrast lighting">
+                        <p class="caption caption--bold caption--desktop">Varying color temperatures enhance the "positive contrast" concept.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Navigation -->
+            <nav class="project-nav-header" id="projectNavHeader">
+                <a href="section80.html" class="project-nav-header__link">
+                    <span class="project-nav-header__arrow">←</span>
+                    <h1 class="project-nav-header__title">Section 80 Bar</h1>
+                </a>
+                <a href="donatello-hall.html" class="project-nav-header__link">
+                    <h1 class="project-nav-header__title">Donatello Hall</h1>
+                    <span class="project-nav-header__arrow">→</span>
+                </a>
+            </nav>
         </main>
     </div>
+
+    <!-- GSAP Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/project.js"></script>
 </body>
 </html>

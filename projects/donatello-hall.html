@@ -4,33 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donatello Hall - Stefano Pezzini</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project.css">
 </head>
 <body>
+    <!-- Main Content -->
     <div id="app">
-        <header class="header">
+        <header class="header" id="projectHeader">
             <div class="header__logo">
                 <h1><a href="../index.html">Stefano Pezzini</a></h1>
             </div>
+
             <div class="header__menu-icon" id="menuIcon">
                 <span class="menu-icon__line menu-icon__line--1"></span>
                 <span class="menu-icon__line menu-icon__line--2"></span>
             </div>
+
             <nav class="header__nav">
                 <h1 class="nav__item nav__item--work nav__item--active"><a href="../work.html">Work</a></h1>
                 <h1 class="nav__item nav__item--about nav__item--inactive"><a href="../about.html">About</a></h1>
             </nav>
+
             <div class="header__subtitle header__subtitle--inactive" id="subtitle">
                 <h1>Lighting Designer</h1>
             </div>
         </header>
+
         <main class="project-content">
-            <h1>Donatello Hall</h1>
+            <!-- Project Title -->
+            <div class="project-title">
+                <h1>Donatello Hall</h1>
+            </div>
+
+            <!-- Project Info -->
+            <div class="project-info">
+                <div class="info-item">
+                    <p class="caption caption--bold">Employer</p>
+                    <p class="caption">ERCO Lighting Design dept.</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Client</p>
+                    <p class="caption">Museo del Bargello, Donatello Hall</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Location</p>
+                    <p class="caption">Florence, Italy</p>
+                </div>
+            </div>
+
+            <!-- Gallery Toggle Controls -->
+            <div class="gallery-toggle">
+                <button class="toggle-btn active" data-view="vertical">Gallery</button>
+                <button class="toggle-btn" data-view="fullview">Full View</button>
+            </div>
+
+            <!-- Content Grid: Intro (2 cols) + Body (2 cols) -->
+            <div class="project-grid">
+                <!-- Intro Text (cols 1-2) -->
+                <div class="project-intro">
+                    <h1>A comprehensive lighting study for one of Florence's most significant Renaissance halls.</h1>
+                </div>
+
+                <!-- Body Paragraphs (cols 3-4) -->
+                <div class="project-body">
+                    <p class="body-text">Feasibility Study and Lighting Design Verification for the Donatello Hall at the Bargello Museum, Florence Including Mockup Tests and Lighting Calculations with AutoCAD and DIALux</p>
+
+                    <p class="body-text">Indirect lighting of the vaulted ceilings with 38W 3000k spotlights with a medium beam angle. Installation with brackets above the capitals</p>
+
+                    <p class="body-text">Accent lighting for the wall artwork and central statues with 8W 3500K spotlights with a narrow spot beam angle of 6°.</p>
+                </div>
+            </div>
+
+            <!-- Scrollable Image Gallery (cols 5-6) -->
+            <div class="project-gallery">
+                <div class="gallery-scroll" id="galleryScroll">
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_1.jpeg" alt="Donatello Hall">
+                        <p class="caption caption--bold caption--desktop">The Donatello Hall at the Bargello Museum.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_2.jpeg" alt="Donatello Hall vaulted ceiling">
+                        <p class="caption caption--bold caption--desktop">Indirect lighting of the vaulted ceilings with 38W 3000k spotlights.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_3.jpg" alt="Donatello Hall statues">
+                        <p class="caption caption--bold caption--desktop">Central statues illuminated with precise accent lighting.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_4.jpeg" alt="Donatello Hall bracket installation">
+                        <p class="caption caption--bold caption--desktop">Installation with brackets above the capitals.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_6.png" alt="Donatello Hall lighting calculation">
+                        <p class="caption caption--bold caption--desktop">Lighting calculations with AutoCAD and DIALux.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_7.jpeg" alt="Donatello Hall wall artwork">
+                        <p class="caption caption--bold caption--desktop">8W 3500K spotlights with narrow 6° beam angle for wall artwork.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_8.png" alt="Donatello Hall mockup">
+                        <p class="caption caption--bold caption--desktop">Mockup tests for lighting verification.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_9.png" alt="Donatello Hall design">
+                        <p class="caption caption--bold caption--desktop">Lighting design verification study.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_13.jpeg" alt="Donatello Hall atmosphere">
+                        <p class="caption caption--bold caption--desktop">The completed lighting enhances the hall's atmosphere.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/DonatelloHall/DonatelloHall_14.jpeg" alt="Donatello Hall detail">
+                        <p class="caption caption--bold caption--desktop">Precise accent lighting reveals sculptural details.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Navigation -->
+            <nav class="project-nav-header" id="projectNavHeader">
+                <a href="ara-pacis.html" class="project-nav-header__link">
+                    <span class="project-nav-header__arrow">←</span>
+                    <h1 class="project-nav-header__title">Ara Pacis</h1>
+                </a>
+                <a href="chaumet.html" class="project-nav-header__link">
+                    <h1 class="project-nav-header__title project-nav-header__title--desktop">Chaumet - Selfridges</h1>
+                    <h1 class="project-nav-header__title project-nav-header__title--mobile">Chaumet</h1>
+                    <span class="project-nav-header__arrow">→</span>
+                </a>
+            </nav>
         </main>
     </div>
+
+    <!-- GSAP Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/project.js"></script>
 </body>
 </html>

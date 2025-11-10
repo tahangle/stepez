@@ -4,33 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goyard - Madison Av - Stefano Pezzini</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project.css">
 </head>
 <body>
+    <!-- Main Content -->
     <div id="app">
-        <header class="header">
+        <header class="header" id="projectHeader">
             <div class="header__logo">
                 <h1><a href="../index.html">Stefano Pezzini</a></h1>
             </div>
+
             <div class="header__menu-icon" id="menuIcon">
                 <span class="menu-icon__line menu-icon__line--1"></span>
                 <span class="menu-icon__line menu-icon__line--2"></span>
             </div>
+
             <nav class="header__nav">
                 <h1 class="nav__item nav__item--work nav__item--active"><a href="../work.html">Work</a></h1>
                 <h1 class="nav__item nav__item--about nav__item--inactive"><a href="../about.html">About</a></h1>
             </nav>
+
             <div class="header__subtitle header__subtitle--inactive" id="subtitle">
                 <h1>Lighting Designer</h1>
             </div>
         </header>
+
         <main class="project-content">
-            <h1>Goyard - Madison Av</h1>
+            <!-- Project Title -->
+            <div class="project-title">
+                <h1>Goyard - Madison Av</h1>
+            </div>
+
+            <!-- Project Info -->
+            <div class="project-info">
+                <div class="info-item">
+                    <p class="caption caption--bold">Employer</p>
+                    <p class="caption">Voyons Voir Lighting Design</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Client</p>
+                    <p class="caption">Goyard</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Location</p>
+                    <p class="caption">New York, USA</p>
+                </div>
+            </div>
+
+            <!-- Content Grid: Intro (2 cols) + Body (2 cols) -->
+            <div class="project-grid">
+                <!-- Intro Text (cols 1-2) -->
+                <div class="project-intro">
+                    <h1>Lighting design project for the Goyard boutique on Madison Avenue, New York City, developed for the architecture firm Moinard Bétaille.</h1>
+                </div>
+
+                <!-- Body Paragraphs (cols 3-4) -->
+                <div class="project-body">
+                    <p class="body-text">The proposal included an innovative facade lighting concept, enhancing the store's exterior presence. Inside, the design featured recessed lighting fixtures and electrified tracks for the ceiling, light panels for wall decorations, and mini projectors with recessed spotlights to provide integrated lighting for the display areas.</p>
+
+                    <p class="body-text">The goal was to preserve the building's original architectural integrity while creating a sophisticated and functional lighting scheme.</p>
+                </div>
+            </div>
+
+            <!-- Scrollable Image Gallery (cols 5-6) -->
+            <div class="project-gallery">
+                <div class="gallery-toggle">
+                    <button class="toggle-btn active" data-view="vertical">Gallery</button>
+                    <button class="toggle-btn" data-view="fullview">Full View</button>
+                </div>
+                <div class="gallery-scroll" id="galleryScroll">
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Goyard/Goyard_animated.gif" alt="Goyard lighting design">
+                        <p class="caption caption--bold caption--desktop">Lighting design for Goyard Madison Avenue.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Goyard/Goyard_1.png" alt="Goyard Madison Avenue">
+                        <p class="caption caption--bold caption--desktop">Goyard boutique on Madison Avenue.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Goyard/Goyard_2.png" alt="Goyard facade">
+                        <p class="caption caption--bold caption--desktop">Innovative facade lighting enhances exterior presence.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Goyard/Goyard_9.png" alt="Goyard facade concept">
+                        <p class="caption caption--bold caption--desktop">Facade lighting concept for Madison Avenue.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Goyard/Goyard_12.png" alt="Goyard interior detail">
+                        <p class="caption caption--bold caption--desktop">Interior lighting detail.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/Goyard/Goyard_13.jpg" alt="Goyard complete design">
+                        <p class="caption caption--bold caption--desktop">Completed lighting design for Moinard Bétaille.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Navigation -->
+            <nav class="project-nav-header" id="projectNavHeader">
+                <a href="chaumet.html" class="project-nav-header__link">
+                    <span class="project-nav-header__arrow">←</span>
+                    <h1 class="project-nav-header__title project-nav-header__title--desktop">Chaumet - Selfridges</h1>
+                    <h1 class="project-nav-header__title project-nav-header__title--mobile">Chaumet</h1>
+                </a>
+                <a href="cave-monaco.html" class="project-nav-header__link">
+                    <h1 class="project-nav-header__title project-nav-header__title--desktop">Hôtel de Paris - Cave Monaco</h1>
+                    <h1 class="project-nav-header__title project-nav-header__title--mobile">Cave Monaco</h1>
+                    <span class="project-nav-header__arrow">→</span>
+                </a>
+            </nav>
         </main>
     </div>
+
+    <!-- GSAP Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/project.js"></script>
 </body>
 </html>

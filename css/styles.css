@@ -14,12 +14,18 @@
     --mobile-margin: 20px;
 
     /* Typography Desktop */
-    --h1-size-desktop: 35px;
-    --h1-line-desktop: 35px;
+    --h1-size-desktop: 30px;
+    --h1-line-desktop: 32px;
+    --body-size-desktop: 16px;
+    --body-line-desktop: 18px;
+    --caption-size: 14px;
+    --caption-line: 15px;
 
     /* Typography Mobile */
     --h1-size-mobile: 32px;
     --h1-line-mobile: 32px;
+    --body-size-mobile: 20px;
+    --body-line-mobile: 25px;
 }
 
 /* Base Styles */
@@ -38,6 +44,28 @@ body {
 h1 {
     font-weight: 400;
     margin: 0;
+}
+
+.caption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: var(--caption-size);
+    line-height: var(--caption-line);
+    font-weight: 400;
+    margin: 0;
+}
+
+.body-text {
+    font-size: var(--body-size-desktop);
+    line-height: var(--body-line-desktop);
+    font-weight: 400;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .body-text {
+        font-size: var(--body-size-mobile);
+        line-height: var(--body-line-mobile);
+    }
 }
 
 /* Header Base */
@@ -160,6 +188,15 @@ main {
 
     .preview-placeholder {
         background-color: #d0d0d0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .preview-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
     .project-category {
@@ -271,6 +308,7 @@ main {
         position: absolute;
         top: var(--mobile-margin);
         left: var(--mobile-margin);
+        z-index: 200;
     }
 
     /* Menu Icon - Top Right */
@@ -278,6 +316,7 @@ main {
         position: absolute;
         top: var(--mobile-margin);
         right: var(--mobile-margin);
+        z-index: 200;
         width: var(--h1-size-mobile);
         height: var(--h1-size-mobile);
         cursor: pointer !important;
@@ -313,27 +352,30 @@ main {
 
     /* Navigation - Bottom (Work left, About right) */
     .header__nav {
-        position: absolute;
-        bottom: var(--mobile-margin);
-        left: var(--mobile-margin);
-        right: var(--mobile-margin);
-        display: flex;
-        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        display: block;
         visibility: visible;
         pointer-events: auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 100;
     }
 
     /* Individual nav items positioning */
     .nav__item--work {
-        position: absolute;
-        left: 0;
-        bottom: 0;
+        position: fixed;
+        left: var(--mobile-margin);
+        bottom: var(--mobile-margin);
     }
 
     .nav__item--about {
-        position: absolute;
-        right: 0;
-        bottom: 0;
+        position: fixed;
+        right: var(--mobile-margin);
+        bottom: var(--mobile-margin);
     }
 
     /* On home page, nav is hidden by default */

@@ -4,33 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fondazione Prada - Stefano Pezzini</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project.css">
 </head>
 <body>
+    <!-- Main Content -->
     <div id="app">
-        <header class="header">
+        <header class="header" id="projectHeader">
             <div class="header__logo">
                 <h1><a href="../index.html">Stefano Pezzini</a></h1>
             </div>
+
             <div class="header__menu-icon" id="menuIcon">
                 <span class="menu-icon__line menu-icon__line--1"></span>
                 <span class="menu-icon__line menu-icon__line--2"></span>
             </div>
+
             <nav class="header__nav">
                 <h1 class="nav__item nav__item--work nav__item--active"><a href="../work.html">Work</a></h1>
                 <h1 class="nav__item nav__item--about nav__item--inactive"><a href="../about.html">About</a></h1>
             </nav>
+
             <div class="header__subtitle header__subtitle--inactive" id="subtitle">
                 <h1>Lighting Designer</h1>
             </div>
         </header>
+
         <main class="project-content">
-            <h1>Fondazione Prada</h1>
+            <!-- Project Title -->
+            <div class="project-title">
+                <h1>Fondazione Prada</h1>
+            </div>
+
+            <!-- Project Info -->
+            <div class="project-info">
+                <div class="info-item">
+                    <p class="caption caption--bold">Employer</p>
+                    <p class="caption">ERCO Lighting Design dept.</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Client</p>
+                    <p class="caption">Fondazione Prada</p>
+                </div>
+                <div class="info-item">
+                    <p class="caption caption--bold">Location</p>
+                    <p class="caption">Milan, Italy</p>
+                </div>
+            </div>
+
+            <!-- Content Grid: Intro (2 cols) + Body (2 cols) -->
+            <div class="project-grid">
+                <!-- Intro Text (cols 1-2) -->
+                <div class="project-intro">
+                    <h1>Analysis of the impact of natural light on fabric-based artworks exhibited in the Podium hall during Fondazione Prada's Paravent exhibition.</h1>
+                </div>
+
+                <!-- Body Paragraphs (cols 3-4) -->
+                <div class="project-body">
+                    <p class="body-text">Key aspects included evaluating the risk of photodegradation to delicate textiles due to UV exposure, as well as how natural light revealed the texture, layering, and transparency of the paravents.</p>
+
+                    <p class="body-text">Lighting simulations and renderings were used to identify high-exposure areas and propose strategies such as UV filtering or layout adjustments, balancing preservation with curatorial goals.</p>
+
+                    <p class="body-text">The analysis considered both the best and worst-case scenarios for natural light-December 21 with cloudy skies and June 21 with clear skies-along with additional sample days covering various weather conditions and exposure times, in order to calculate an average light exposure for the hall.</p>
+                </div>
+            </div>
+
+            <!-- Scrollable Image Gallery (cols 5-6) -->
+            <div class="project-gallery">
+                <div class="gallery-toggle">
+                    <button class="toggle-btn active" data-view="vertical">Gallery</button>
+                    <button class="toggle-btn" data-view="fullview">Full View</button>
+                </div>
+                <div class="gallery-scroll" id="galleryScroll">
+                    <div class="image-wrapper">
+                        <img src="../images/projects/FondazionePrada/Prada_1.jpg" alt="Fondazione Prada Podium hall">
+                        <p class="caption caption--bold caption--desktop">Podium hall during Paravent exhibition.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/FondazionePrada/Prada_2.jpg" alt="Fondazione Prada paravents">
+                        <p class="caption caption--bold caption--desktop">Natural light reveals texture and transparency of paravents.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/FondazionePrada/Prada_3.jpg" alt="Fondazione Prada analysis">
+                        <p class="caption caption--bold caption--desktop">Lighting simulations identify high-exposure areas.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/FondazionePrada/Prada_4.jpeg" alt="Fondazione Prada UV analysis">
+                        <p class="caption caption--bold caption--desktop">UV exposure risk analysis for delicate textiles.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/FondazionePrada/Prada_5.jpeg" alt="Fondazione Prada rendering">
+                        <p class="caption caption--bold caption--desktop">Renderings for various weather conditions and exposure times.</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img src="../images/projects/FondazionePrada/Prada_6.webp" alt="Fondazione Prada complete analysis">
+                        <p class="caption caption--bold caption--desktop">Complete natural light exposure analysis.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Navigation -->
+            <nav class="project-nav-header" id="projectNavHeader">
+                <a href="cave-monaco.html" class="project-nav-header__link">
+                    <span class="project-nav-header__arrow">←</span>
+                    <h1 class="project-nav-header__title project-nav-header__title--desktop">Hôtel de Paris - Cave Monaco</h1>
+                    <h1 class="project-nav-header__title project-nav-header__title--mobile">Cave Monaco</h1>
+                </a>
+                <a href="section80.html" class="project-nav-header__link">
+                    <h1 class="project-nav-header__title">Section 80 Bar</h1>
+                    <span class="project-nav-header__arrow">→</span>
+                </a>
+            </nav>
         </main>
     </div>
+
+    <!-- GSAP Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/project.js"></script>
 </body>
 </html>
