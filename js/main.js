@@ -336,17 +336,21 @@ function initProjectHover() {
             defaults: { ease: 'power2.out' }
         });
 
+        let isHovering = false;
+
         // Set initial states for preview and category
         gsap.set(preview, {
             opacity: 0,
             visibility: 'hidden',
-            scale: 0.9
+            scale: 0.9,
+            pointerEvents: 'none'
         });
 
         gsap.set(category, {
             opacity: 0,
             visibility: 'hidden',
-            x: 20
+            x: 20,
+            pointerEvents: 'none'
         });
 
         // Animate preview and category in, fade others (current name stays at 1)
@@ -355,30 +359,36 @@ function initProjectHover() {
                 opacity: 1,
                 visibility: 'visible',
                 scale: 1,
-                duration: 0.5
+                pointerEvents: 'auto',
+                duration: 0.4
             }, 0)
             .to(category, {
                 opacity: 1,
                 visibility: 'visible',
                 x: 0,
-                duration: 0.5
-            }, 0.1)
-            .fromTo(otherNames, {
-                opacity: 1
-            }, {
+                pointerEvents: 'auto',
+                duration: 0.4
+            }, 0.05)
+            .to(otherNames, {
                 opacity: 0.2,
-                duration: 0.4,
+                duration: 0.3,
                 ease: 'power2.inOut'
             }, 0);
 
         // Mouse enter on entire row
         item.addEventListener('mouseenter', () => {
-            hoverTimeline.play();
+            if (!isHovering) {
+                isHovering = true;
+                hoverTimeline.play();
+            }
         });
 
         // Mouse leave from entire row
         item.addEventListener('mouseleave', () => {
-            hoverTimeline.reverse();
+            if (isHovering) {
+                isHovering = false;
+                hoverTimeline.reverse();
+            }
         });
     });
 }
