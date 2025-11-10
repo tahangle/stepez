@@ -47,30 +47,30 @@ function initPageLoad() {
                 });
             }
         } else {
-            // Home page: Everything fades in
+            // Home page: Everything fades in quickly on mobile
             // Logo and menu icon appear together
             timeline.to('.header__logo', {
                 opacity: 1,
-                duration: 1.2,
-                delay: 0.2
+                duration: 0.6,
+                delay: 0.1
             });
 
             timeline.to('.header__menu-icon', {
                 opacity: 1,
-                duration: 1.2,
-                delay: 0.2
+                duration: 0.6,
+                delay: 0.1
             }, 0);
 
             // Show all nav items and subtitle
             timeline.to('.nav__item', {
                 opacity: 1,
-                duration: 1.2
-            }, '-=0.8');
+                duration: 0.6
+            }, '-=0.4');
 
             timeline.to('.header__subtitle', {
                 opacity: 1,
-                duration: 1.2
-            }, '-=0.8');
+                duration: 0.6
+            }, '-=0.4');
         }
     } else {
         // Desktop: Different behavior
