@@ -319,6 +319,8 @@ function initProjectHover() {
 
     const projectItems = document.querySelectorAll('.project-item');
     const allProjectNames = Array.from(projectItems).map(p => p.querySelector('.project-name'));
+    const allPreviews = Array.from(projectItems).map(p => p.querySelector('.project-preview'));
+    const allCategories = Array.from(projectItems).map(p => p.querySelector('.project-category'));
 
     let currentTimeline = null;
 
@@ -352,8 +354,10 @@ function initProjectHover() {
                 currentTimeline.kill();
             }
 
-            // Reset all project names to full opacity first
+            // Reset all to default state
             gsap.set(allProjectNames, { opacity: 1 });
+            gsap.set(allPreviews.filter(p => p !== preview), { opacity: 0, visibility: 'hidden' });
+            gsap.set(allCategories.filter(c => c !== category), { opacity: 0, visibility: 'hidden' });
 
             // Create new timeline for this hover
             currentTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
