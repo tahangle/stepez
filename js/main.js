@@ -319,8 +319,6 @@ function initProjectHover() {
 
     const projectItems = document.querySelectorAll('.project-item');
 
-    console.log('Initializing hover for', projectItems.length, 'projects');
-
     projectItems.forEach((item, index) => {
         const projectName = item.querySelector('.project-name');
         const preview = item.querySelector('.project-preview');
@@ -329,7 +327,6 @@ function initProjectHover() {
         const otherNames = otherItems.map(p => p.querySelector('.project-name'));
 
         if (!preview || !category || !projectName) {
-            console.log('Missing preview, category or name for item', index);
             return;
         }
 
@@ -376,13 +373,11 @@ function initProjectHover() {
 
         // Mouse enter on entire row
         item.addEventListener('mouseenter', () => {
-            console.log('Hovering item', index);
             hoverTimeline.play();
         });
 
         // Mouse leave from entire row
         item.addEventListener('mouseleave', () => {
-            console.log('Leaving item', index);
             hoverTimeline.reverse();
         });
     });

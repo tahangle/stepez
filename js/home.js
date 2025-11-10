@@ -28,8 +28,6 @@ let isPaused = false;
 
 // Create image elements
 const container = document.querySelector('.slideshow-container');
-console.log('Container found:', container);
-console.log('Creating images from:', shuffledImages);
 
 shuffledImages.forEach((project, index) => {
     const img = document.createElement('img');
@@ -38,11 +36,9 @@ shuffledImages.forEach((project, index) => {
     img.dataset.isDark = project.isDark;
     if (index === 0) img.classList.add('active');
     container.appendChild(img);
-    console.log('Added image:', img.src, 'active:', index === 0);
 });
 
 const images = document.querySelectorAll('.slideshow-image');
-console.log('Total images:', images.length);
 
 // GSAP animation for crossfade
 function showNextImage() {
