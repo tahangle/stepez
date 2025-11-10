@@ -364,7 +364,7 @@ function initProjectHover() {
                 duration: 0.5
             }, 0.1)
             .to(otherNames, {
-                opacity: 0.2,
+                opacity: 0.1,
                 duration: 0.4,
                 ease: 'power2.inOut'
             }, 0);
