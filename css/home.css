@@ -1,5 +1,10 @@
 /* Homepage Styles */
 
+/* Prevent scroll on homepage */
+body {
+    overflow: hidden;
+}
+
 /* Ensure header is above slideshow */
 .header {
     z-index: 200 !important;
@@ -96,10 +101,10 @@
         background-color: var(--color-primary) !important;
     }
 
-    /* Larger images on mobile to match desktop */
+    /* Smaller images on mobile */
     .slideshow-image {
-        max-width: 85%;
-        max-height: 85vh;
+        max-width: 70%;
+        max-height: 60vh;
     }
 }
 
