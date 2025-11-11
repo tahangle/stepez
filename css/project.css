@@ -94,8 +94,8 @@
         grid-column: 5 / 7;
         grid-row: 1 / 5;
         position: sticky;
-        top: calc(var(--desktop-margin) * 3);
-        height: calc(100vh - var(--desktop-margin) * 6);
+        top: calc(var(--desktop-margin) * 3 + 50px);
+        height: calc(100vh - var(--desktop-margin) * 6 - 50px);
         overflow: hidden;
         align-self: start;
         display: flex;
