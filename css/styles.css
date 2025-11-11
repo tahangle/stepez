@@ -325,10 +325,16 @@ main {
     }
 
     /* When menu is open, make logo fixed and visible above menu */
-    .header__menu-icon.is-open ~ .header__logo,
-    body.menu-open .header__logo {
+    .header__menu-icon.is-open ~ .header__logo {
         position: fixed;
         z-index: 300;
+    }
+
+    /* Ensure logo is on top when menu is open on mobile */
+    @media (max-width: 768px) {
+        body .header__logo {
+            z-index: 300;
+        }
     }
 
     /* Menu Icon - Top Right - Fixed to stay visible while scrolling */
