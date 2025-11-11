@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Keyboard navigation for all devices
     initKeyboardNavigation();
 
+    // Touch swipe navigation for mobile
+    if (isMobile) {
+        initSwipeNavigation();
+    }
+
     // Re-initialize on resize if crossing breakpoint
     let wasDesktop = window.innerWidth > 768;
     window.addEventListener('resize', () => {
@@ -258,4 +263,40 @@ function initKeyboardNavigation() {
             window.location.href = nextLink.href;
         }
     });
+}
+
+// Touch swipe navigation for mobile
+function initSwipeNavigation() {
+    const projectNav = document.getElementById('projectNavHeader');
+    if (!projectNav) return;
+
+    const links = projectNav.querySelectorAll('.project-nav-header__link');
+    const prevLink = links[0]; // Left arrow
+    const nextLink = links[1]; // Right arrow
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipeDistance = 50; // Minimum distance for a swipe
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeDistance = touchEndX - touchStartX;
+
+        // Swipe right (previous project)
+        if (swipeDistance > minSwipeDistance && prevLink) {
+            window.location.href = prevLink.href;
+        }
+        // Swipe left (next project)
+        else if (swipeDistance < -minSwipeDistance && nextLink) {
+            window.location.href = nextLink.href;
+        }
+    }
 }

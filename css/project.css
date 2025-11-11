@@ -389,11 +389,4 @@
     .project-nav-header__title--mobile {
         display: block;
     }
-
-    /* Hide project names on very small screens, show only arrows */
-    @media (max-width: 480px) {
-        .project-nav-header__link h1 {
-            display: none;
-        }
-    }
 }
