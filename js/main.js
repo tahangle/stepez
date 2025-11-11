@@ -142,8 +142,7 @@ function initMobileMenu() {
             // Open menu
             menuIcon.classList.add('is-open');
 
-            // Lock body scroll and make logo fixed on mobile
-            document.body.classList.add('menu-open');
+            // Make logo fixed on mobile
             const logo = document.querySelector('.header__logo');
             if (logo) {
                 logo.classList.add('menu-open');
@@ -199,8 +198,7 @@ function initMobileMenu() {
             // Close menu
             menuIcon.classList.remove('is-open');
 
-            // Unlock body scroll and reset logo on mobile
-            document.body.classList.remove('menu-open');
+            // Reset logo on mobile
             const logo = document.querySelector('.header__logo');
             if (logo) {
                 logo.classList.remove('menu-open');
