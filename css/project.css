@@ -54,7 +54,7 @@
     /* Gallery Toggle Controls */
     .gallery-toggle {
         position: fixed;
-        top: var(--desktop-margin);
+        top: calc(var(--desktop-margin) * 3);
         right: var(--desktop-margin);
         display: flex;
         gap: 10px;

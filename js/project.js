@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         initGalleryToggle();
     }
 
+    // Keyboard navigation for all devices
+    initKeyboardNavigation();
+
     // Re-initialize on resize if crossing breakpoint
     let wasDesktop = window.innerWidth > 768;
     window.addEventListener('resize', () => {
@@ -233,5 +236,26 @@ function initMobileScrollAnimations() {
                 toggleActions: 'play none none reverse'
             }
         });
+    });
+}
+
+// Keyboard navigation between projects
+function initKeyboardNavigation() {
+    const projectNav = document.getElementById('projectNavHeader');
+    if (!projectNav) return;
+
+    const links = projectNav.querySelectorAll('.project-nav-header__link');
+    const prevLink = links[0]; // Left arrow
+    const nextLink = links[1]; // Right arrow
+
+    document.addEventListener('keydown', (e) => {
+        // Only navigate if not typing in an input field
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowLeft' && prevLink) {
+            window.location.href = prevLink.href;
+        } else if (e.key === 'ArrowRight' && nextLink) {
+            window.location.href = nextLink.href;
+        }
     });
 }
