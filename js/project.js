@@ -1,8 +1,13 @@
 // Project Page Animations
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Only run on desktop
-    if (window.innerWidth > 768) {
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        // Mobile: animate images on scroll
+        initMobileScrollAnimations();
+    } else {
+        // Desktop: smooth scroll and gallery features
         initSmoothGalleryScroll();
         initHeaderSwap();
         initGalleryToggle();
@@ -198,4 +203,35 @@ function initGalleryToggle() {
             galleryScroll.scrollLeft += e.deltaY;
         }
     }, { passive: false });
+}
+
+// Mobile scroll animations
+function initMobileScrollAnimations() {
+    const imageWrappers = document.querySelectorAll('.gallery-scroll .image-wrapper');
+
+    if (!imageWrappers.length) return;
+
+    // Set initial state for all images
+    gsap.set(imageWrappers, {
+        opacity: 0,
+        y: 30,
+        scale: 0.95
+    });
+
+    // Animate each image as it enters viewport
+    imageWrappers.forEach((wrapper, index) => {
+        gsap.to(wrapper, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: wrapper,
+                start: 'top 85%',
+                end: 'top 50%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    });
 }
