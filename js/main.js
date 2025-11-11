@@ -142,6 +142,13 @@ function initMobileMenu() {
             // Open menu
             menuIcon.classList.add('is-open');
 
+            // Lock body scroll and make logo fixed on mobile
+            document.body.classList.add('menu-open');
+            const logo = document.querySelector('.header__logo');
+            if (logo) {
+                logo.classList.add('menu-open');
+            }
+
             // Animate menu icon rotation with GSAP
             gsap.to('.menu-icon__line--1', {
                 rotation: 45,
@@ -191,6 +198,13 @@ function initMobileMenu() {
         } else {
             // Close menu
             menuIcon.classList.remove('is-open');
+
+            // Unlock body scroll and reset logo on mobile
+            document.body.classList.remove('menu-open');
+            const logo = document.querySelector('.header__logo');
+            if (logo) {
+                logo.classList.remove('menu-open');
+            }
 
             // Animate menu icon back to plus
             gsap.to('.menu-icon__line--1', {
