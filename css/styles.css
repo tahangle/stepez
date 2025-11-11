@@ -334,8 +334,6 @@ main {
     body.menu-open {
         overflow: hidden;
         height: 100vh;
-        position: fixed;
-        width: 100%;
     }
 
     /* Menu Icon - Top Right - Fixed to stay visible while scrolling */
