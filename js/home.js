@@ -177,20 +177,34 @@ if (window.innerWidth <= 768) {
 // Desktop grid of images
 if (window.innerWidth > 768) {
     const gridContainer = document.getElementById('imageGridBackground');
-    const gridSize = 24; // 6 columns x 4 rows
-    const shuffledAllImages = shuffleArray(allProjectImages);
+    const gridSize = 48; // 8 columns x 6 rows
+
+    // Function to get random crop position
+    function getRandomCrop() {
+        // Random position between -50% and 0% (since image is 200% size)
+        return {
+            top: `${Math.random() * -100}%`,
+            left: `${Math.random() * -100}%`
+        };
+    }
 
     // Create grid items
     for (let i = 0; i < gridSize; i++) {
         const gridItem = document.createElement('div');
         gridItem.className = 'grid-item';
 
-        // Get random subset of images for this grid item
-        const itemImages = shuffleArray([...allProjectImages]).slice(0, 5);
+        // Get random subset of images for this grid item (no duplicates across the grid)
+        const itemImages = shuffleArray([...allProjectImages]).slice(0, 8);
 
         itemImages.forEach((imgSrc, index) => {
             const img = document.createElement('img');
             img.src = imgSrc;
+
+            // Random crop position
+            const crop = getRandomCrop();
+            img.style.top = crop.top;
+            img.style.left = crop.left;
+
             if (index === 0) img.classList.add('active');
             gridItem.appendChild(img);
         });
@@ -198,7 +212,7 @@ if (window.innerWidth > 768) {
         gridContainer.appendChild(gridItem);
     }
 
-    // Animate each grid item independently
+    // Animate each grid item independently with new random crop on each change
     function animateGridItem(gridItem, delay) {
         const images = gridItem.querySelectorAll('img');
         let currentIdx = 0;
@@ -208,17 +222,22 @@ if (window.innerWidth > 768) {
             const nextIdx = (currentIdx + 1) % images.length;
             const next = images[nextIdx];
 
+            // Apply new random crop to next image
+            const crop = getRandomCrop();
+            next.style.top = crop.top;
+            next.style.left = crop.left;
+
             current.classList.remove('active');
             next.classList.add('active');
 
             currentIdx = nextIdx;
-        }, 3000 + delay);
+        }, 4000 + delay);
     }
 
     // Start animations with random delays
     const gridItems = document.querySelectorAll('.grid-item');
     gridItems.forEach((item, index) => {
-        const randomDelay = Math.random() * 2000; // 0-2s random delay
+        const randomDelay = Math.random() * 3000; // 0-3s random delay
         setTimeout(() => {
             animateGridItem(item, 0);
         }, randomDelay);
