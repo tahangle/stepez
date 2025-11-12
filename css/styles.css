@@ -249,7 +249,7 @@ main {
     .project-item {
         display: block;
         cursor: default;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     /* Apply mobile h1 typography to project names */
