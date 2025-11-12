@@ -1,10 +1,65 @@
 // Homepage Slideshow and Grid
 
-// Unsplash Source - no API key needed
-const UNSPLASH_QUERIES = ['lighting', 'light', 'architecture', 'interior-design', 'modern-lighting'];
+// All project images
+const allProjectImages = [
+    'images/projects/Section80/Section80_1.jpg',
+    'images/projects/Section80/Section80_2.jpg',
+    'images/projects/Section80/Section80_3.jpg',
+    'images/projects/Section80/Section80_4.jpg',
+    'images/projects/Section80/Section80_5.jpg',
+    'images/projects/Section80/Section80_6.jpeg',
+    'images/projects/Section80/Section80_7.jpeg',
+    'images/projects/AraPacis/AraPacis_1.jpg',
+    'images/projects/AraPacis/AraPacis_2.jpg',
+    'images/projects/AraPacis/AraPacis_3.jpg',
+    'images/projects/AraPacis/AraPacis_4.jpg',
+    'images/projects/AraPacis/AraPacis_5.jpg',
+    'images/projects/AraPacis/AraPacis_6.jpg',
+    'images/projects/DonatelloHall/DonatelloHall_1.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_2.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_3.jpg',
+    'images/projects/DonatelloHall/DonatelloHall_4.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_6.png',
+    'images/projects/DonatelloHall/DonatelloHall_7.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_8.png',
+    'images/projects/DonatelloHall/DonatelloHall_9.png',
+    'images/projects/DonatelloHall/DonatelloHall_10.png',
+    'images/projects/DonatelloHall/DonatelloHall_11.png',
+    'images/projects/DonatelloHall/DonatelloHall_12.png',
+    'images/projects/DonatelloHall/DonatelloHall_13.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_14.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_15.jpg',
+    'images/projects/DonatelloHall/DonatelloHall_16.jpg',
+    'images/projects/Chaumet/Chaumet_1.jpg',
+    'images/projects/Chaumet/Chaumet_2.jpg',
+    'images/projects/Chaumet/Chaumet_3.jpg',
+    'images/projects/Chaumet/Chaumet_4.jpg',
+    'images/projects/Chaumet/Chaumet_5.jpg',
+    'images/projects/Goyard/Goyard_1.png',
+    'images/projects/Goyard/Goyard_2.png',
+    'images/projects/Goyard/Goyard_3.png',
+    'images/projects/Goyard/Goyard_4.png',
+    'images/projects/Goyard/Goyard_5.png',
+    'images/projects/Goyard/Goyard_6.png',
+    'images/projects/Goyard/Goyard_7.png',
+    'images/projects/Goyard/Goyard_8.png',
+    'images/projects/Goyard/Goyard_9.png',
+    'images/projects/Goyard/Goyard_12.png',
+    'images/projects/Goyard/Goyard_13.jpg',
+    'images/projects/CaveMonaco/CaveMonaco_1.png',
+    'images/projects/CaveMonaco/CaveMonaco_2.jpg',
+    'images/projects/CaveMonaco/CaveMonaco_3.jpg',
+    'images/projects/CaveMonaco/CaveMonaco_4.jpg',
+    'images/projects/FondazionePrada/Prada_1.jpg',
+    'images/projects/FondazionePrada/Prada_2.jpg',
+    'images/projects/FondazionePrada/Prada_3.jpg',
+    'images/projects/FondazionePrada/Prada_4.jpg',
+    'images/projects/FondazionePrada/Prada_5.jpg'
+];
 
-// Cache for unique image URLs
-let imageCounter = 0;
+// Shuffle and manage image pool
+let imagePool = [];
+let poolIndex = 0;
 
 // Project images for mobile slideshow with their brightness classification
 const projectImages = [
@@ -157,14 +212,14 @@ if (window.innerWidth <= 768) {
     });
 }
 
-// Get unique Unsplash Source URL
-function getUnsplashImage() {
-    // Use Unsplash Source which doesn't require API key
-    // Random query from the list
-    const query = UNSPLASH_QUERIES[Math.floor(Math.random() * UNSPLASH_QUERIES.length)];
-    // Add timestamp and counter to ensure unique URLs (Unsplash returns different images for different URLs)
-    const uniqueId = Date.now() + imageCounter++;
-    return `https://source.unsplash.com/400x300/?${query}&sig=${uniqueId}`;
+// Get next image from pool (no duplicates until all used)
+function getNextImage() {
+    if (poolIndex >= imagePool.length) {
+        // Reshuffle when pool is exhausted
+        imagePool = shuffleArray([...allProjectImages]);
+        poolIndex = 0;
+    }
+    return imagePool[poolIndex++];
 }
 
 // Desktop grid of images
@@ -188,6 +243,9 @@ if (window.innerWidth > 768) {
 
     // Initialize grid
     function initGrid() {
+        // Initialize image pool
+        imagePool = shuffleArray([...allProjectImages]);
+
         // Create grid items with unique images
         for (let i = 0; i < gridSize; i++) {
             const gridItem = document.createElement('div');
@@ -195,7 +253,7 @@ if (window.innerWidth > 768) {
 
             // Each cell gets one unique image to start
             const img = document.createElement('img');
-            img.src = getUnsplashImage();
+            img.src = getNextImage();
 
             // Random zoom
             const zoom = getRandomZoom();
@@ -214,7 +272,7 @@ if (window.innerWidth > 768) {
 
                 // Create new image element
                 const next = document.createElement('img');
-                next.src = getUnsplashImage();
+                next.src = getNextImage();
 
                 // Apply random zoom
                 const zoom = getRandomZoom();
