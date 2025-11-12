@@ -1,14 +1,14 @@
 // Homepage Slideshow
 
-// Project images with their brightness classification
+// Project images with their brightness classification and mobile size variants
 const projectImages = [
-    { src: 'images/projects/Section80/Section80_1.jpg', isDark: true },
-    { src: 'images/projects/AraPacis/AraPacis_1.jpg', isDark: false },
-    { src: 'images/projects/DonatelloHall/DonatelloHall_1.jpeg', isDark: true },
-    { src: 'images/projects/Chaumet/Chaumet_1.jpg', isDark: false },
-    { src: 'images/projects/Goyard/Goyard_1.png', isDark: false },
-    { src: 'images/projects/CaveMonaco/CaveMonaco_1.png', isDark: true },
-    { src: 'images/projects/FondazionePrada/Prada_1.jpg', isDark: false }
+    { src: 'images/projects/Section80/Section80_1.jpg', isDark: true, mobileSize: 'large' },
+    { src: 'images/projects/AraPacis/AraPacis_1.jpg', isDark: false, mobileSize: 'medium' },
+    { src: 'images/projects/DonatelloHall/DonatelloHall_1.jpeg', isDark: true, mobileSize: 'small' },
+    { src: 'images/projects/Chaumet/Chaumet_1.jpg', isDark: false, mobileSize: 'large' },
+    { src: 'images/projects/Goyard/Goyard_1.png', isDark: false, mobileSize: 'medium' },
+    { src: 'images/projects/CaveMonaco/CaveMonaco_1.png', isDark: true, mobileSize: 'small' },
+    { src: 'images/projects/FondazionePrada/Prada_1.jpg', isDark: false, mobileSize: 'large' }
 ];
 
 // Shuffle array for random order
@@ -34,6 +34,7 @@ shuffledImages.forEach((project, index) => {
     img.src = project.src;
     img.classList.add('slideshow-image');
     img.dataset.isDark = project.isDark;
+    img.dataset.mobileSize = project.mobileSize;
     if (index === 0) img.classList.add('active');
     container.appendChild(img);
 });

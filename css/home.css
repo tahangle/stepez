@@ -54,6 +54,22 @@ body {
         max-height: 60vh;
     }
 
+    /* Size variations for mobile */
+    .slideshow-image[data-mobile-size="small"] {
+        max-width: 50%;
+        max-height: 45vh;
+    }
+
+    .slideshow-image[data-mobile-size="medium"] {
+        max-width: 60%;
+        max-height: 52vh;
+    }
+
+    .slideshow-image[data-mobile-size="large"] {
+        max-width: 75%;
+        max-height: 65vh;
+    }
+
     /* Override nav background on homepage to show current image blurred */
     body .header__nav {
         backdrop-filter: blur(30px);
