@@ -396,6 +396,11 @@ function initProjectHover() {
                     duration: 0.6,
                     ease: 'power3.inOut'
                 }, 0)
+                .to(projectName, {
+                    scale: 1.01,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, 0)
                 .to(preview, {
                     opacity: 1,
                     visibility: 'visible',
@@ -424,6 +429,11 @@ function initProjectHover() {
                     scaleX: 0,
                     duration: 0.4,
                     ease: 'power3.inOut'
+                }, 0)
+                .to(projectName, {
+                    scale: 1,
+                    duration: 0.4,
+                    ease: 'power3.out'
                 }, 0)
                 .to(preview, {
                     opacity: 0,
