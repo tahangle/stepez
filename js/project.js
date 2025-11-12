@@ -121,6 +121,34 @@ function initGalleryToggle() {
 
     if (!galleryScroll || !toggleBtns.length) return;
 
+    // Add underline elements to buttons
+    toggleBtns.forEach(btn => {
+        const underline = document.createElement('div');
+        underline.className = 'toggle-btn-underline';
+        btn.appendChild(underline);
+
+        // GSAP hover animation
+        btn.addEventListener('mouseenter', () => {
+            if (!btn.classList.contains('active')) {
+                gsap.to(underline, {
+                    scaleX: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            if (!btn.classList.contains('active')) {
+                gsap.to(underline, {
+                    scaleX: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    });
+
     const exitFullView = () => {
         galleryScroll.classList.remove('fullview');
         // Update button states

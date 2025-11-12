@@ -103,30 +103,34 @@
     }
 
     .toggle-btn {
-        background-color: #E3E3E3;
+        background: none;
         border: none;
-        border-radius: 5px;
-        padding: 6px 10px;
+        padding: 0;
         cursor: pointer;
         font-family: Helvetica, Arial, sans-serif;
-        font-size: var(--caption-size);
-        line-height: var(--caption-line);
+        font-size: var(--body-size-desktop);
+        line-height: var(--body-line-desktop);
         font-weight: 400;
         color: var(--color-primary);
-        transition: all 0.3s ease;
         text-decoration: none;
+        position: relative;
     }
 
-    .toggle-btn.active {
-        background-color: #B8B8B8;
+    /* Underline element for animation */
+    .toggle-btn-underline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-primary);
+        transform: scaleX(0);
+        transform-origin: left center;
     }
 
-    .toggle-btn:hover {
-        background-color: #D0D0D0;
-    }
-
-    .toggle-btn.active:hover {
-        background-color: #B8B8B8;
+    /* Active button has underline visible */
+    .toggle-btn.active .toggle-btn-underline {
+        transform: scaleX(1);
     }
 
 
