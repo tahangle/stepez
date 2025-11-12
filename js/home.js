@@ -6,7 +6,6 @@ const projectImages = [
     { src: 'images/projects/AraPacis/AraPacis_1.jpg', isDark: false, mobileSize: 'medium' },
     { src: 'images/projects/DonatelloHall/DonatelloHall_1.jpeg', isDark: true, mobileSize: 'small' },
     { src: 'images/projects/Chaumet/Chaumet_1.jpg', isDark: false, mobileSize: 'large' },
-    { src: 'images/projects/Goyard/Goyard_1.png', isDark: false, mobileSize: 'medium' },
     { src: 'images/projects/CaveMonaco/CaveMonaco_1.png', isDark: true, mobileSize: 'small' },
     { src: 'images/projects/FondazionePrada/Prada_1.jpg', isDark: false, mobileSize: 'large' }
 ];
