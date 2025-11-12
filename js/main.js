@@ -366,36 +366,35 @@ function initProjectHover() {
                 currentTimeline.kill();
             }
 
-            // Reset all to default state
-            gsap.set(allProjectNames, { opacity: 1, scale: 1 });
+            // Hide all other previews/categories immediately
             gsap.set(allPreviews.filter(p => p !== preview), { opacity: 0, visibility: 'hidden' });
             gsap.set(allCategories.filter(c => c !== category), { opacity: 0, visibility: 'hidden' });
 
             // Create new timeline for this hover
-            currentTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            currentTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
             currentTimeline
                 .to(projectName, {
                     scale: 1.01,
-                    duration: 0.6,
-                    ease: 'power3.out'
+                    duration: 0.4,
+                    ease: 'power2.out'
                 }, 0)
                 .to(preview, {
                     opacity: 1,
                     visibility: 'visible',
                     scale: 1,
-                    duration: 0.5
-                }, 0.1)
+                    duration: 0.4
+                }, 0)
                 .to(category, {
                     opacity: 1,
                     visibility: 'visible',
                     x: 0,
-                    duration: 0.5
-                }, 0.15)
+                    duration: 0.4
+                }, 0.05)
                 .to(otherNames, {
                     opacity: 0.1,
-                    duration: 0.4,
-                    ease: 'power3.inOut'
+                    duration: 0.3,
+                    ease: 'power2.out'
                 }, 0);
         });
 
@@ -406,30 +405,30 @@ function initProjectHover() {
             }
 
             // Create exit animation
-            currentTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            currentTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
             currentTimeline
                 .to(projectName, {
                     scale: 1,
-                    duration: 0.4,
-                    ease: 'power3.out'
+                    duration: 0.3,
+                    ease: 'power2.out'
                 }, 0)
                 .to(preview, {
                     opacity: 0,
                     visibility: 'hidden',
                     scale: 0.9,
-                    duration: 0.4
+                    duration: 0.3
                 }, 0)
                 .to(category, {
                     opacity: 0,
                     visibility: 'hidden',
                     x: 20,
-                    duration: 0.4
+                    duration: 0.3
                 }, 0)
                 .to(allProjectNames, {
                     opacity: 1,
                     duration: 0.3,
-                    ease: 'power3.inOut'
+                    ease: 'power2.out'
                 }, 0);
         });
     });
