@@ -20,6 +20,11 @@
         gap: 20px;
     }
 
+    .about-bio .body-text {
+        font-size: var(--h1-size-desktop);
+        line-height: var(--h1-line-desktop);
+    }
+
     .about-contact {
         grid-column: 4 / 5;
         display: flex;
@@ -31,6 +36,11 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
+    }
+
+    .contact-item .body-text {
+        font-size: var(--h1-size-desktop);
+        line-height: var(--h1-line-desktop);
     }
 
     .contact-label {
