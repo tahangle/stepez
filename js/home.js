@@ -6,6 +6,7 @@ const projectImages = [
     { src: 'images/projects/AraPacis/AraPacis_1.jpg', isDark: false },
     { src: 'images/projects/DonatelloHall/DonatelloHall_1.jpeg', isDark: true },
     { src: 'images/projects/Chaumet/Chaumet_1.jpg', isDark: false },
+    { src: 'images/projects/Goyard/Goyard_1.png', isDark: false },
     { src: 'images/projects/CaveMonaco/CaveMonaco_1.png', isDark: true },
     { src: 'images/projects/FondazionePrada/Prada_1.jpg', isDark: false }
 ];
