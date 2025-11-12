@@ -110,8 +110,58 @@ body {
 
 /* Desktop */
 @media (min-width: 769px) {
+    /* Hide mobile slideshow on desktop */
+    .home-slideshow {
+        display: none;
+    }
+
+    /* Grid background for desktop */
+    .image-grid-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        gap: 20px;
+        padding: var(--desktop-margin);
+        z-index: 1;
+    }
+
+    .grid-item {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 0.8s ease;
+    }
+
+    .grid-item img.active {
+        opacity: 1;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Hide grid on mobile */
+    .image-grid-background {
+        display: none;
+    }
+
     .slideshow-image {
-        max-width: 60%;
-        max-height: 80vh;
+        max-width: 70%;
+        max-height: 60vh;
     }
 }

@@ -1,6 +1,29 @@
-// Homepage Slideshow
+// Homepage Slideshow and Grid
 
-// Project images with their brightness classification
+// All project images
+const allProjectImages = [
+    'images/projects/Section80/Section80_1.jpg',
+    'images/projects/Section80/Section80_2.jpg',
+    'images/projects/Section80/Section80_3.jpg',
+    'images/projects/AraPacis/AraPacis_1.jpg',
+    'images/projects/AraPacis/AraPacis_2.jpg',
+    'images/projects/AraPacis/AraPacis_3.jpg',
+    'images/projects/DonatelloHall/DonatelloHall_1.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_2.jpeg',
+    'images/projects/DonatelloHall/DonatelloHall_3.jpg',
+    'images/projects/Chaumet/Chaumet_1.jpg',
+    'images/projects/Chaumet/Chaumet_2.jpg',
+    'images/projects/Chaumet/Chaumet_3.jpg',
+    'images/projects/Goyard/Goyard_1.png',
+    'images/projects/Goyard/Goyard_2.png',
+    'images/projects/CaveMonaco/CaveMonaco_1.png',
+    'images/projects/CaveMonaco/CaveMonaco_2.jpg',
+    'images/projects/FondazionePrada/Prada_1.jpg',
+    'images/projects/FondazionePrada/Prada_2.jpg',
+    'images/projects/FondazionePrada/Prada_3.jpg'
+];
+
+// Project images for mobile slideshow with their brightness classification
 const projectImages = [
     { src: 'images/projects/Section80/Section80_1.jpg', isDark: true },
     { src: 'images/projects/AraPacis/AraPacis_1.jpg', isDark: false },
@@ -151,14 +174,65 @@ if (window.innerWidth <= 768) {
     });
 }
 
-// Start slideshow on load
-startSlideshow();
+// Desktop grid of images
+if (window.innerWidth > 768) {
+    const gridContainer = document.getElementById('imageGridBackground');
+    const gridSize = 24; // 6 columns x 4 rows
+    const shuffledAllImages = shuffleArray(allProjectImages);
 
-// Pause on visibility change
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        pauseSlideshow();
-    } else if (!isPaused) {
-        resumeSlideshow();
+    // Create grid items
+    for (let i = 0; i < gridSize; i++) {
+        const gridItem = document.createElement('div');
+        gridItem.className = 'grid-item';
+
+        // Get random subset of images for this grid item
+        const itemImages = shuffleArray([...allProjectImages]).slice(0, 5);
+
+        itemImages.forEach((imgSrc, index) => {
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            if (index === 0) img.classList.add('active');
+            gridItem.appendChild(img);
+        });
+
+        gridContainer.appendChild(gridItem);
     }
-});
+
+    // Animate each grid item independently
+    function animateGridItem(gridItem, delay) {
+        const images = gridItem.querySelectorAll('img');
+        let currentIdx = 0;
+
+        setInterval(() => {
+            const current = images[currentIdx];
+            const nextIdx = (currentIdx + 1) % images.length;
+            const next = images[nextIdx];
+
+            current.classList.remove('active');
+            next.classList.add('active');
+
+            currentIdx = nextIdx;
+        }, 3000 + delay);
+    }
+
+    // Start animations with random delays
+    const gridItems = document.querySelectorAll('.grid-item');
+    gridItems.forEach((item, index) => {
+        const randomDelay = Math.random() * 2000; // 0-2s random delay
+        setTimeout(() => {
+            animateGridItem(item, 0);
+        }, randomDelay);
+    });
+} else {
+    // Mobile: Start slideshow on load
+    startSlideshow();
+
+    // Pause on visibility change
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            pauseSlideshow();
+        } else if (!isPaused) {
+            resumeSlideshow();
+        }
+    });
+}
