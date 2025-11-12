@@ -1,27 +1,12 @@
 // Homepage Slideshow and Grid
 
-// All project images
-const allProjectImages = [
-    'images/projects/Section80/Section80_1.jpg',
-    'images/projects/Section80/Section80_2.jpg',
-    'images/projects/Section80/Section80_3.jpg',
-    'images/projects/AraPacis/AraPacis_1.jpg',
-    'images/projects/AraPacis/AraPacis_2.jpg',
-    'images/projects/AraPacis/AraPacis_3.jpg',
-    'images/projects/DonatelloHall/DonatelloHall_1.jpeg',
-    'images/projects/DonatelloHall/DonatelloHall_2.jpeg',
-    'images/projects/DonatelloHall/DonatelloHall_3.jpg',
-    'images/projects/Chaumet/Chaumet_1.jpg',
-    'images/projects/Chaumet/Chaumet_2.jpg',
-    'images/projects/Chaumet/Chaumet_3.jpg',
-    'images/projects/Goyard/Goyard_1.png',
-    'images/projects/Goyard/Goyard_2.png',
-    'images/projects/CaveMonaco/CaveMonaco_1.png',
-    'images/projects/CaveMonaco/CaveMonaco_2.jpg',
-    'images/projects/FondazionePrada/Prada_1.jpg',
-    'images/projects/FondazionePrada/Prada_2.jpg',
-    'images/projects/FondazionePrada/Prada_3.jpg'
-];
+// Unsplash API configuration
+const UNSPLASH_ACCESS_KEY = 'RjS5pFd0O1b89DzmP7xXe8xB0FV4eW_2SZUY8M_T3eA';
+const UNSPLASH_TOPICS = ['lighting', 'light-design', 'architecture-lighting', 'interior-lighting'];
+
+// Cache for Unsplash images
+let unsplashImageCache = [];
+let cacheIndex = 0;
 
 // Project images for mobile slideshow with their brightness classification
 const projectImages = [
@@ -174,6 +159,21 @@ if (window.innerWidth <= 768) {
     });
 }
 
+// Fetch images from Unsplash
+async function fetchUnsplashImages(count = 50) {
+    try {
+        const query = 'lighting design architecture interior';
+        const response = await fetch(
+            `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&count=${count}&client_id=${UNSPLASH_ACCESS_KEY}`
+        );
+        const data = await response.json();
+        return data.map(photo => photo.urls.regular);
+    } catch (error) {
+        console.error('Error fetching Unsplash images:', error);
+        return [];
+    }
+}
+
 // Desktop grid of images
 if (window.innerWidth > 768) {
     const gridContainer = document.getElementById('imageGridBackground');
@@ -193,76 +193,81 @@ if (window.innerWidth > 768) {
         };
     }
 
-    // Create a pool of all images, ensuring each image appears exactly once per cycle
-    const imagePool = [...allProjectImages];
-    let currentPoolIndex = 0;
-
-    // Function to get next unique image
-    function getNextImage() {
-        if (currentPoolIndex >= imagePool.length) {
-            // Reshuffle when we've used all images
-            shuffleArray(imagePool);
-            currentPoolIndex = 0;
+    // Function to get next unique image from cache
+    async function getNextImage() {
+        if (cacheIndex >= unsplashImageCache.length) {
+            // Fetch more images when cache is depleted
+            const newImages = await fetchUnsplashImages(50);
+            unsplashImageCache.push(...newImages);
         }
-        return imagePool[currentPoolIndex++];
+        return unsplashImageCache[cacheIndex++];
     }
 
-    // Create grid items with unique images
-    for (let i = 0; i < gridSize; i++) {
-        const gridItem = document.createElement('div');
-        gridItem.className = 'grid-item';
+    // Initialize grid
+    async function initGrid() {
+        // Fetch initial batch of images
+        unsplashImageCache = await fetchUnsplashImages(60);
 
-        // Each cell gets one unique image to start
-        const img = document.createElement('img');
-        img.src = getNextImage();
+        // Create grid items with unique images
+        for (let i = 0; i < gridSize; i++) {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
 
-        // Random zoom
-        const zoom = getRandomZoom();
-        img.style.transform = zoom.transform;
-        img.style.transformOrigin = zoom.transformOrigin;
-        img.classList.add('active');
+            // Each cell gets one unique image to start
+            const img = document.createElement('img');
+            img.src = await getNextImage();
 
-        gridItem.appendChild(img);
-        gridContainer.appendChild(gridItem);
-    }
-
-    // Animate each grid item independently with new random zoom on each change
-    function animateGridItem(gridItem, delay) {
-        setInterval(() => {
-            const current = gridItem.querySelector('img.active');
-
-            // Create new image element
-            const next = document.createElement('img');
-            next.src = getNextImage();
-
-            // Apply random zoom
+            // Random zoom
             const zoom = getRandomZoom();
-            next.style.transform = zoom.transform;
-            next.style.transformOrigin = zoom.transformOrigin;
+            img.style.transform = zoom.transform;
+            img.style.transformOrigin = zoom.transformOrigin;
+            img.classList.add('active');
 
-            gridItem.appendChild(next);
+            gridItem.appendChild(img);
+            gridContainer.appendChild(gridItem);
+        }
 
-            // Fade transition
-            setTimeout(() => {
-                next.classList.add('active');
-                current.classList.remove('active');
+        // Animate each grid item independently with new random zoom on each change
+        function animateGridItem(gridItem, delay) {
+            setInterval(async () => {
+                const current = gridItem.querySelector('img.active');
 
-                // Remove old image after transition
+                // Create new image element
+                const next = document.createElement('img');
+                next.src = await getNextImage();
+
+                // Apply random zoom
+                const zoom = getRandomZoom();
+                next.style.transform = zoom.transform;
+                next.style.transformOrigin = zoom.transformOrigin;
+
+                gridItem.appendChild(next);
+
+                // Fade transition
                 setTimeout(() => {
-                    current.remove();
-                }, 800);
-            }, 50);
-        }, 4000 + delay);
+                    next.classList.add('active');
+                    current.classList.remove('active');
+
+                    // Remove old image after transition
+                    setTimeout(() => {
+                        current.remove();
+                    }, 800);
+                }, 50);
+            }, 4000 + delay);
+        }
+
+        // Start animations with random delays
+        const gridItems = document.querySelectorAll('.grid-item');
+        gridItems.forEach((item, index) => {
+            const randomDelay = Math.random() * 3000; // 0-3s random delay
+            setTimeout(() => {
+                animateGridItem(item, 0);
+            }, randomDelay);
+        });
     }
 
-    // Start animations with random delays
-    const gridItems = document.querySelectorAll('.grid-item');
-    gridItems.forEach((item, index) => {
-        const randomDelay = Math.random() * 3000; // 0-3s random delay
-        setTimeout(() => {
-            animateGridItem(item, 0);
-        }, randomDelay);
-    });
+    // Initialize the grid
+    initGrid();
 } else {
     // Mobile: Start slideshow on load
     startSlideshow();
