@@ -1,7 +1,117 @@
 /* Homepage Styles */
 
-/* Ensure header is visible */
+/* Prevent scroll on homepage */
+body {
+    overflow: hidden;
+}
+
+/* Ensure header is above slideshow */
 .header {
     z-index: 200 !important;
+}
+
+/* Slideshow Container */
+.home-slideshow {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slideshow-image {
+    position: absolute;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease;
+    filter: grayscale(100%);
+}
+
+.slideshow-image.active {
+    opacity: 1;
+}
+
+/* Mobile Menu Background Effect */
+@media (max-width: 768px) {
+    .slideshow-image {
+        max-width: 70%;
+        max-height: 60vh;
+    }
+
+    /* Override nav background on homepage to show current image blurred */
+    body .header__nav {
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 50;
+        transition: opacity 0.3s ease;
+        filter: grayscale(100%);
+    }
+
+    .menu-background.active {
+        opacity: 1;
+        pointer-events: none;
+    }
+
+    /* Adjust header z-index for mobile menu */
+    body.menu-open .header {
+        z-index: 100;
+    }
+
+    /* Adjust nav items color based on background */
+    body.dark-background .header__logo h1 a,
+    body.dark-background .nav__item a {
+        color: var(--color-secondary) !important;
+    }
+
+    body.dark-background .menu-icon__line {
+        background-color: var(--color-secondary) !important;
+    }
+
+    body.light-background .header__logo h1 a,
+    body.light-background .nav__item a {
+        color: var(--color-primary) !important;
+    }
+
+    body.light-background .menu-icon__line {
+        background-color: var(--color-primary) !important;
+    }
+}
+
+/* Desktop - smaller, more minimalistic */
+@media (min-width: 769px) {
+    .slideshow-image {
+        max-width: 25%;
+        max-height: 35vh;
+    }
 }
 
