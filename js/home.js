@@ -160,16 +160,28 @@ if (window.innerWidth <= 768) {
 }
 
 // Fetch images from Unsplash
-async function fetchUnsplashImages(count = 50) {
+async function fetchUnsplashImages(count = 30) {
     try {
-        const query = 'lighting design architecture interior';
+        const query = 'lighting';
         const response = await fetch(
-            `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&count=${count}&client_id=${UNSPLASH_ACCESS_KEY}`
+            `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&count=${count}&client_id=${UNSPLASH_ACCESS_KEY}`,
+            {
+                headers: {
+                    'Accept-Version': 'v1'
+                }
+            }
         );
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log('Fetched images:', data.length);
         return data.map(photo => photo.urls.regular);
     } catch (error) {
         console.error('Error fetching Unsplash images:', error);
+        // Fallback to project images if API fails
         return [];
     }
 }
@@ -205,26 +217,50 @@ if (window.innerWidth > 768) {
 
     // Initialize grid
     async function initGrid() {
-        // Fetch initial batch of images
-        unsplashImageCache = await fetchUnsplashImages(60);
+        try {
+            // Fetch initial batch of images - do multiple smaller requests
+            console.log('Fetching initial images...');
+            const batch1 = await fetchUnsplashImages(30);
+            const batch2 = await fetchUnsplashImages(30);
+            unsplashImageCache = [...batch1, ...batch2];
 
-        // Create grid items with unique images
-        for (let i = 0; i < gridSize; i++) {
-            const gridItem = document.createElement('div');
-            gridItem.className = 'grid-item';
+            console.log('Total images fetched:', unsplashImageCache.length);
 
-            // Each cell gets one unique image to start
-            const img = document.createElement('img');
-            img.src = await getNextImage();
+            if (unsplashImageCache.length === 0) {
+                console.error('No images fetched from Unsplash');
+                return;
+            }
 
-            // Random zoom
-            const zoom = getRandomZoom();
-            img.style.transform = zoom.transform;
-            img.style.transformOrigin = zoom.transformOrigin;
-            img.classList.add('active');
+            // Create grid items with unique images
+            for (let i = 0; i < gridSize; i++) {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
 
-            gridItem.appendChild(img);
-            gridContainer.appendChild(gridItem);
+                // Each cell gets one unique image to start
+                const img = document.createElement('img');
+                const imageUrl = await getNextImage();
+
+                if (!imageUrl) {
+                    console.error('No image URL available for grid item', i);
+                    continue;
+                }
+
+                img.src = imageUrl;
+                img.crossOrigin = 'anonymous';
+
+                // Random zoom
+                const zoom = getRandomZoom();
+                img.style.transform = zoom.transform;
+                img.style.transformOrigin = zoom.transformOrigin;
+                img.classList.add('active');
+
+                gridItem.appendChild(img);
+                gridContainer.appendChild(gridItem);
+            }
+
+            console.log('Grid initialized with', gridSize, 'items');
+        } catch (error) {
+            console.error('Error initializing grid:', error);
         }
 
         // Animate each grid item independently with new random zoom on each change
