@@ -122,11 +122,15 @@ h1 {
 
 /* Initial state for animations - Mobile */
 @media (max-width: 768px) {
-    /* Default: everything starts hidden except on work/about pages */
+    /* Logo and menu icon always visible */
     .header__logo,
-    .nav__item,
-    .header__subtitle,
     .header__menu-icon {
+        opacity: 1 !important;
+    }
+
+    /* Nav items and subtitle start hidden */
+    .nav__item,
+    .header__subtitle {
         opacity: 0;
     }
 
