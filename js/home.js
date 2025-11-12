@@ -1,12 +1,10 @@
 // Homepage Slideshow and Grid
 
-// Unsplash API configuration
-const UNSPLASH_ACCESS_KEY = 'RjS5pFd0O1b89DzmP7xXe8xB0FV4eW_2SZUY8M_T3eA';
-const UNSPLASH_TOPICS = ['lighting', 'light-design', 'architecture-lighting', 'interior-lighting'];
+// Unsplash Source - no API key needed
+const UNSPLASH_QUERIES = ['lighting', 'light', 'architecture', 'interior-design', 'modern-lighting'];
 
-// Cache for Unsplash images
-let unsplashImageCache = [];
-let cacheIndex = 0;
+// Cache for unique image URLs
+let imageCounter = 0;
 
 // Project images for mobile slideshow with their brightness classification
 const projectImages = [
@@ -159,31 +157,14 @@ if (window.innerWidth <= 768) {
     });
 }
 
-// Fetch images from Unsplash
-async function fetchUnsplashImages(count = 30) {
-    try {
-        const query = 'lighting';
-        const response = await fetch(
-            `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&count=${count}&client_id=${UNSPLASH_ACCESS_KEY}`,
-            {
-                headers: {
-                    'Accept-Version': 'v1'
-                }
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Fetched images:', data.length);
-        return data.map(photo => photo.urls.regular);
-    } catch (error) {
-        console.error('Error fetching Unsplash images:', error);
-        // Fallback to project images if API fails
-        return [];
-    }
+// Get unique Unsplash Source URL
+function getUnsplashImage() {
+    // Use Unsplash Source which doesn't require API key
+    // Random query from the list
+    const query = UNSPLASH_QUERIES[Math.floor(Math.random() * UNSPLASH_QUERIES.length)];
+    // Add timestamp and counter to ensure unique URLs (Unsplash returns different images for different URLs)
+    const uniqueId = Date.now() + imageCounter++;
+    return `https://source.unsplash.com/400x300/?${query}&sig=${uniqueId}`;
 }
 
 // Desktop grid of images
@@ -205,72 +186,35 @@ if (window.innerWidth > 768) {
         };
     }
 
-    // Function to get next unique image from cache
-    async function getNextImage() {
-        if (cacheIndex >= unsplashImageCache.length) {
-            // Fetch more images when cache is depleted
-            const newImages = await fetchUnsplashImages(50);
-            unsplashImageCache.push(...newImages);
-        }
-        return unsplashImageCache[cacheIndex++];
-    }
-
     // Initialize grid
-    async function initGrid() {
-        try {
-            // Fetch initial batch of images - do multiple smaller requests
-            console.log('Fetching initial images...');
-            const batch1 = await fetchUnsplashImages(30);
-            const batch2 = await fetchUnsplashImages(30);
-            unsplashImageCache = [...batch1, ...batch2];
+    function initGrid() {
+        // Create grid items with unique images
+        for (let i = 0; i < gridSize; i++) {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
 
-            console.log('Total images fetched:', unsplashImageCache.length);
+            // Each cell gets one unique image to start
+            const img = document.createElement('img');
+            img.src = getUnsplashImage();
 
-            if (unsplashImageCache.length === 0) {
-                console.error('No images fetched from Unsplash');
-                return;
-            }
+            // Random zoom
+            const zoom = getRandomZoom();
+            img.style.transform = zoom.transform;
+            img.style.transformOrigin = zoom.transformOrigin;
+            img.classList.add('active');
 
-            // Create grid items with unique images
-            for (let i = 0; i < gridSize; i++) {
-                const gridItem = document.createElement('div');
-                gridItem.className = 'grid-item';
-
-                // Each cell gets one unique image to start
-                const img = document.createElement('img');
-                const imageUrl = await getNextImage();
-
-                if (!imageUrl) {
-                    console.error('No image URL available for grid item', i);
-                    continue;
-                }
-
-                img.src = imageUrl;
-                img.crossOrigin = 'anonymous';
-
-                // Random zoom
-                const zoom = getRandomZoom();
-                img.style.transform = zoom.transform;
-                img.style.transformOrigin = zoom.transformOrigin;
-                img.classList.add('active');
-
-                gridItem.appendChild(img);
-                gridContainer.appendChild(gridItem);
-            }
-
-            console.log('Grid initialized with', gridSize, 'items');
-        } catch (error) {
-            console.error('Error initializing grid:', error);
+            gridItem.appendChild(img);
+            gridContainer.appendChild(gridItem);
         }
 
         // Animate each grid item independently with new random zoom on each change
         function animateGridItem(gridItem, delay) {
-            setInterval(async () => {
+            setInterval(() => {
                 const current = gridItem.querySelector('img.active');
 
                 // Create new image element
                 const next = document.createElement('img');
-                next.src = await getNextImage();
+                next.src = getUnsplashImage();
 
                 // Apply random zoom
                 const zoom = getRandomZoom();
