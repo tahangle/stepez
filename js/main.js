@@ -366,6 +366,9 @@ function initProjectHover() {
                 currentTimeline.kill();
             }
 
+            // Reset all project names to full opacity and scale first
+            gsap.set(allProjectNames, { opacity: 1, scale: 1 });
+
             // Hide all other previews/categories immediately
             gsap.set(allPreviews.filter(p => p !== preview), { opacity: 0, visibility: 'hidden' });
             gsap.set(allCategories.filter(c => c !== category), { opacity: 0, visibility: 'hidden' });
@@ -374,6 +377,11 @@ function initProjectHover() {
             currentTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
             currentTimeline
+                .to(otherNames, {
+                    opacity: 0.1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                }, 0)
                 .to(projectName, {
                     scale: 1.01,
                     duration: 0.4,
@@ -390,12 +398,7 @@ function initProjectHover() {
                     visibility: 'visible',
                     x: 0,
                     duration: 0.4
-                }, 0.05)
-                .to(otherNames, {
-                    opacity: 0.1,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                }, 0);
+                }, 0.05);
         });
 
         // Mouse leave from entire row
