@@ -340,15 +340,11 @@ function initProjectHover() {
         const projectName = item.querySelector('.project-name');
         const preview = item.querySelector('.project-preview');
         const category = item.querySelector('.project-category');
+        const otherNames = allProjectNames.filter(name => name !== projectName);
 
         if (!preview || !category || !projectName) {
             return;
         }
-
-        // Create underline element
-        const underline = document.createElement('div');
-        underline.className = 'project-underline';
-        projectName.appendChild(underline);
 
         // Set initial states for preview and category
         gsap.set(preview, {
@@ -363,12 +359,6 @@ function initProjectHover() {
             x: 20
         });
 
-        // Set initial state for underline
-        gsap.set(underline, {
-            scaleX: 0,
-            transformOrigin: 'left center'
-        });
-
         // Mouse enter on entire row
         item.addEventListener('mouseenter', () => {
             // Kill any existing timeline
@@ -376,14 +366,8 @@ function initProjectHover() {
                 currentTimeline.kill();
             }
 
-            // Reset all other underlines
-            document.querySelectorAll('.project-underline').forEach(u => {
-                if (u !== underline) {
-                    gsap.set(u, { scaleX: 0 });
-                }
-            });
-
-            // Hide all other previews/categories
+            // Reset all to default state
+            gsap.set(allProjectNames, { opacity: 1, scale: 1 });
             gsap.set(allPreviews.filter(p => p !== preview), { opacity: 0, visibility: 'hidden' });
             gsap.set(allCategories.filter(c => c !== category), { opacity: 0, visibility: 'hidden' });
 
@@ -391,11 +375,6 @@ function initProjectHover() {
             currentTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
             currentTimeline
-                .to(underline, {
-                    scaleX: 1,
-                    duration: 0.6,
-                    ease: 'power3.inOut'
-                }, 0)
                 .to(projectName, {
                     scale: 1.01,
                     duration: 0.6,
@@ -412,7 +391,12 @@ function initProjectHover() {
                     visibility: 'visible',
                     x: 0,
                     duration: 0.5
-                }, 0.15);
+                }, 0.15)
+                .to(otherNames, {
+                    opacity: 0.1,
+                    duration: 0.4,
+                    ease: 'power3.inOut'
+                }, 0);
         });
 
         // Mouse leave from entire row
@@ -425,11 +409,6 @@ function initProjectHover() {
             currentTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
             currentTimeline
-                .to(underline, {
-                    scaleX: 0,
-                    duration: 0.4,
-                    ease: 'power3.inOut'
-                }, 0)
                 .to(projectName, {
                     scale: 1,
                     duration: 0.4,
@@ -446,6 +425,11 @@ function initProjectHover() {
                     visibility: 'hidden',
                     x: 20,
                     duration: 0.4
+                }, 0)
+                .to(allProjectNames, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power3.inOut'
                 }, 0);
         });
     });
