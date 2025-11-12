@@ -177,60 +177,81 @@ if (window.innerWidth <= 768) {
 // Desktop grid of images
 if (window.innerWidth > 768) {
     const gridContainer = document.getElementById('imageGridBackground');
-    const gridSize = 48; // 8 columns x 6 rows
+    const gridSize = 32; // 8 columns x 4 rows (removed first and last rows)
 
-    // Function to get random crop position
-    function getRandomCrop() {
-        // Random position between -50% and 0% (since image is 200% size)
+    // Function to get random zoom and position
+    function getRandomZoom() {
+        // Random zoom between 150% and 220%
+        const scale = 1.5 + Math.random() * 0.7;
+        // Center position with slight random offset
+        const offsetX = (Math.random() - 0.5) * 40; // -20% to +20%
+        const offsetY = (Math.random() - 0.5) * 40;
+
         return {
-            top: `${Math.random() * -100}%`,
-            left: `${Math.random() * -100}%`
+            transform: `translate(${offsetX}%, ${offsetY}%) scale(${scale})`,
+            transformOrigin: 'center center'
         };
     }
 
-    // Create grid items
+    // Create a pool of all images, ensuring each image appears exactly once per cycle
+    const imagePool = [...allProjectImages];
+    let currentPoolIndex = 0;
+
+    // Function to get next unique image
+    function getNextImage() {
+        if (currentPoolIndex >= imagePool.length) {
+            // Reshuffle when we've used all images
+            shuffleArray(imagePool);
+            currentPoolIndex = 0;
+        }
+        return imagePool[currentPoolIndex++];
+    }
+
+    // Create grid items with unique images
     for (let i = 0; i < gridSize; i++) {
         const gridItem = document.createElement('div');
         gridItem.className = 'grid-item';
 
-        // Get random subset of images for this grid item (no duplicates across the grid)
-        const itemImages = shuffleArray([...allProjectImages]).slice(0, 8);
+        // Each cell gets one unique image to start
+        const img = document.createElement('img');
+        img.src = getNextImage();
 
-        itemImages.forEach((imgSrc, index) => {
-            const img = document.createElement('img');
-            img.src = imgSrc;
+        // Random zoom
+        const zoom = getRandomZoom();
+        img.style.transform = zoom.transform;
+        img.style.transformOrigin = zoom.transformOrigin;
+        img.classList.add('active');
 
-            // Random crop position
-            const crop = getRandomCrop();
-            img.style.top = crop.top;
-            img.style.left = crop.left;
-
-            if (index === 0) img.classList.add('active');
-            gridItem.appendChild(img);
-        });
-
+        gridItem.appendChild(img);
         gridContainer.appendChild(gridItem);
     }
 
-    // Animate each grid item independently with new random crop on each change
+    // Animate each grid item independently with new random zoom on each change
     function animateGridItem(gridItem, delay) {
-        const images = gridItem.querySelectorAll('img');
-        let currentIdx = 0;
-
         setInterval(() => {
-            const current = images[currentIdx];
-            const nextIdx = (currentIdx + 1) % images.length;
-            const next = images[nextIdx];
+            const current = gridItem.querySelector('img.active');
 
-            // Apply new random crop to next image
-            const crop = getRandomCrop();
-            next.style.top = crop.top;
-            next.style.left = crop.left;
+            // Create new image element
+            const next = document.createElement('img');
+            next.src = getNextImage();
 
-            current.classList.remove('active');
-            next.classList.add('active');
+            // Apply random zoom
+            const zoom = getRandomZoom();
+            next.style.transform = zoom.transform;
+            next.style.transformOrigin = zoom.transformOrigin;
 
-            currentIdx = nextIdx;
+            gridItem.appendChild(next);
+
+            // Fade transition
+            setTimeout(() => {
+                next.classList.add('active');
+                current.classList.remove('active');
+
+                // Remove old image after transition
+                setTimeout(() => {
+                    current.remove();
+                }, 800);
+            }, 50);
         }, 4000 + delay);
     }
 

@@ -124,10 +124,11 @@ body {
         height: 100vh;
         display: grid;
         grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
         gap: 40px;
-        padding: var(--desktop-margin);
+        padding: calc(var(--desktop-margin) * 4) var(--desktop-margin) calc(var(--desktop-margin) * 4) var(--desktop-margin);
         z-index: 1;
+        align-content: center;
     }
 
     .grid-item {
@@ -139,12 +140,12 @@ body {
     }
 
     .grid-item img {
-        width: 200%;
-        height: 200%;
+        min-width: 150%;
+        min-height: 150%;
         object-fit: cover;
         opacity: 0;
         position: absolute;
-        transition: opacity 0.8s ease;
+        transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .grid-item img.active {
