@@ -38,11 +38,6 @@
         gap: 5px;
     }
 
-    .contact-item .body-text {
-        font-size: var(--h1-size-desktop);
-        line-height: var(--h1-line-desktop);
-    }
-
     .contact-label {
         opacity: 0.5;
     }
