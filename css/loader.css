@@ -1,0 +1,133 @@
+/* Loading Screen */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+}
+
+.loader.loaded {
+    pointer-events: none;
+}
+
+.loader__content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 60px;
+}
+
+.loader__text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.loader__name {
+    font-size: var(--h1-size-desktop);
+    line-height: var(--h1-line-desktop);
+    font-weight: 400;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.loader__images {
+    position: relative;
+    width: 25vw;
+    height: 100vh;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader__image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 35vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    will-change: transform;
+}
+
+.loader__counter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.loader__percentage {
+    font-size: var(--h1-size-desktop);
+    line-height: var(--h1-line-desktop);
+    font-weight: 400;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+/* Desktop positioning */
+@media (min-width: 769px) {
+    .loader__content {
+        padding: var(--desktop-margin);
+    }
+
+    .loader__text {
+        padding-left: 0;
+    }
+
+    .loader__counter {
+        padding-right: 0;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .loader__content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        padding: var(--mobile-margin);
+        gap: 40px;
+    }
+
+    .loader__text {
+        justify-content: center;
+        padding-top: 0;
+    }
+
+    .loader__name {
+        font-size: var(--h1-size-mobile);
+        line-height: var(--h1-line-mobile);
+    }
+
+    .loader__images {
+        width: 100%;
+        height: 50vh;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .loader__counter {
+        justify-content: center;
+        padding-bottom: 0;
+    }
+
+    .loader__percentage {
+        font-size: var(--h1-size-mobile);
+        line-height: var(--h1-line-mobile);
+    }
+}
