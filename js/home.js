@@ -151,8 +151,18 @@ if (window.innerWidth <= 768) {
     });
 }
 
-// Start slideshow on load
-startSlideshow();
+// Wait for loader to finish before starting slideshow
+function initSlideshow() {
+    if (window.homepageReady) {
+        startSlideshow();
+    } else {
+        // Check again in a moment
+        setTimeout(initSlideshow, 50);
+    }
+}
+
+// Start slideshow only after loader is complete
+initSlideshow();
 
 // Pause on visibility change
 document.addEventListener('visibilitychange', () => {

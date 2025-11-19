@@ -9,8 +9,8 @@
     const headerLogo = document.querySelector('.header__logo h1');
     const headerSubtitle = document.querySelector('.header__subtitle h1');
 
-    // Project images for loader - mix from different projects
-    const loaderImages = [
+    // Images to display in the carousel (subset for visual effect)
+    const carouselImages = [
         'images/projects/Section80/Section80_1.jpg',
         'images/projects/AraPacis/AraPacis_1.jpg',
         'images/projects/DonatelloHall/DonatelloHall_1.jpeg',
@@ -31,9 +31,22 @@
         'images/projects/FondazionePrada/Prada_3.jpg'
     ];
 
-    // Create image elements and add to container
+    // ALL images that need to be preloaded for the homepage (from home.js)
+    const homepageImages = [
+        'images/projects/Section80/Section80_1.jpg',
+        'images/projects/AraPacis/AraPacis_1.jpg',
+        'images/projects/DonatelloHall/DonatelloHall_1.jpeg',
+        'images/projects/Chaumet/Chaumet_1.jpg',
+        'images/projects/CaveMonaco/CaveMonaco_1.png',
+        'images/projects/FondazionePrada/Prada_1.jpg'
+    ];
+
+    // Combine all images that need to be loaded
+    const allImagesToPreload = [...new Set([...carouselImages, ...homepageImages])];
+
+    // Create image elements for carousel display
     const imageElements = [];
-    loaderImages.forEach((src, index) => {
+    carouselImages.forEach((src, index) => {
         const img = document.createElement('img');
         img.src = src;
         img.classList.add('loader__image');
@@ -53,10 +66,10 @@
     let currentProgress = 0;
     let targetProgress = 0;
     let loadedResources = 0;
-    const totalResources = loaderImages.length;
+    const totalResources = allImagesToPreload.length;
 
-    // Minimum loading time - longer for smoother animation
-    const minLoadTime = 4000;
+    // Minimum loading time - ensures animation is visible
+    const minLoadTime = 2000;
     const startTime = Date.now();
 
     // Smooth counter animation using GSAP
@@ -129,8 +142,8 @@
         });
     }
 
-    // Preload images
-    loaderImages.forEach((src) => {
+    // Preload ALL images (carousel + homepage)
+    allImagesToPreload.forEach((src) => {
         const img = new Image();
         img.onload = img.onerror = () => {
             loadedResources++;
@@ -153,6 +166,9 @@
         setTimeout(() => {
             // Ensure we're at 100%
             updateCounter(100);
+
+            // Signal that loading is complete - homepage can now safely start
+            window.homepageReady = true;
 
             // Wait briefly at 100% before animating out
             setTimeout(() => {
